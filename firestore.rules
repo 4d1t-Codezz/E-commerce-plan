@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Anyone with the site link can read and tick checklist items.
+    match /checks/{taskId} {
+      allow read: if true;
+      allow write: if taskId.size() < 20
+                   && request.resource.data.keys().hasOnly(['done', 'at'])
+                   && request.resource.data.done is bool;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Road to Black Friday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+body{margin:0}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+[hidden]{display:none!important}
+/* Layout: a launch run-sheet. Sticky control bar, milestone rail, then day rows (date gutter + task list), reference panels at the end. */
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --ink:#141a26; --muted:#5d6678; --line:#dde2ea;
+  --accent:#2747d6; --accent-soft:#e6ebfc;
+  --bf:#e0361f; --bf-soft:#fde8e4;
+  --jasper:#0d8a74; --jasper-soft:#dcf3ee;
+  --aditya:#7a3fd1; --aditya-soft:#eee5fb;
+  --both:#3c4557; --both-soft:#e7eaf0;
+  --done:#9aa3b3;
+  --f-display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f131b; --surface:#171c27; --ink:#e8ecf3; --muted:#98a2b5; --line:#2a3242;
+  --accent:#7d95ff; --accent-soft:#1f2a4d;
+  --bf:#ff6a52; --bf-soft:#3a1d18;
+  --jasper:#3fd1b3; --jasper-soft:#123a33;
+  --aditya:#b48cff; --aditya-soft:#2c1f45;
+  --both:#b9c2d3; --both-soft:#262d3b;
+  --done:#5d6678; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f131b; --surface:#171c27; --ink:#e8ecf3; --muted:#98a2b5; --line:#2a3242;
+  --accent:#7d95ff; --accent-soft:#1f2a4d;
+  --bf:#ff6a52; --bf-soft:#3a1d18;
+  --jasper:#3fd1b3; --jasper-soft:#123a33;
+  --aditya:#b48cff; --aditya-soft:#2c1f45;
+  --both:#b9c2d3; --both-soft:#262d3b;
+  --done:#5d6678; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.label{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* hero */
+header.hero{padding-block:40px 24px}
+.hero-grid{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.hero h1{font-size:clamp(34px,6vw,60px);font-weight:800;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--bf)}
+.hero p{max-width:62ch;color:var(--muted);margin:12px 0 0}
+.count{display:flex;gap:10px}
+.count div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-align:center;min-width:84px}
+.count b{display:block;font-family:var(--f-display);font-size:34px;font-weight:800;line-height:1}
+.count .bfnum b{color:var(--bf)}
+.goal{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.goal span{font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.goal strong{font-family:var(--f-mono)}
+
+/* control bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-block:1px solid var(--line)}
+.bar .wrap{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;padding-block:10px}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{font:600 13px var(--f-body);border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.filters button:focus-visible,.task input:focus-visible+span,.qa input:focus-visible+span,.toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.prog{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto;align-items:center}
+.pg{display:flex;align-items:center;gap:8px;font-size:12px}
+.pg .track{width:70px;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.pg .fill{height:100%;width:0;transition:width .3s}
+.pg.j .fill{background:var(--jasper)} .pg.a .fill{background:var(--aditya)} .pg.b .fill{background:var(--both)}
+.toggle{font:500 12px var(--f-body);color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer}
+.sync{font-size:11px;color:var(--muted)}
+
+/* milestones */
+.rail{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding-block:24px 8px}
+.ms{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-decoration:none;color:inherit;min-width:0}
+.ms:hover{border-color:var(--accent)}
+.ms .d{font-family:var(--f-mono);font-size:12px;color:var(--accent);font-weight:600}
+.ms .t{font-weight:600;font-size:13px;line-height:1.3;margin-top:4px}
+.ms.bf{background:var(--bf-soft);border-color:var(--bf)} .ms.bf .d{color:var(--bf)}
+.ms.past{opacity:.55}
+
+/* phases */
+.phase{padding-block:32px 8px}
+.phase-head{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:10px}
+.phase-head h2{font-size:clamp(22px,3.4vw,30px);font-weight:700}
+.phase-head .range{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.phase-goal{margin:10px 0 0;font-size:14px;color:var(--muted);max-width:75ch}
+.phase-goal b{color:var(--ink)}
+
+.day{display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px;padding-block:18px;border-bottom:1px solid var(--line)}
+.day.today{background:linear-gradient(90deg,var(--accent-soft),transparent 70%);border-radius:8px;margin-inline:-10px;padding-inline:10px}
+.day.bfday{background:var(--bf-soft);border-radius:8px;margin-inline:-10px;padding-inline:10px;border-bottom:none}
+.date .dow{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.date .dn{font-family:var(--f-display);font-weight:800;font-size:26px;line-height:1}
+.date .tag{display:inline-block;margin-top:6px;font:600 10px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:4px;background:var(--accent);color:var(--surface)}
+.bfday .date .tag{background:var(--bf)}
+.date .dc{font-size:11px;color:var(--muted);margin-top:6px}
+.dbody{min-width:0}
+.dbody h3{font-size:18px;font-weight:700;margin-bottom:4px}
+.deadline{font-size:13px;color:var(--muted);margin-bottom:10px}
+.deadline b{color:var(--bf);font-weight:600}
+ul.tasks{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.task{display:flex;gap:10px;align-items:flex-start;padding:5px 0;cursor:pointer}
+.task input,.qa input{position:absolute;opacity:0;width:1px;height:1px}
+.task .box,.qa .box{flex:none;width:18px;height:18px;border:2px solid var(--muted);border-radius:5px;margin-top:2px;display:grid;place-items:center;background:var(--surface)}
+.task input:checked+.box,.qa input:checked+.box{background:var(--accent);border-color:var(--accent)}
+.task input:checked+.box::after,.qa input:checked+.box::after{content:"";width:5px;height:9px;border:solid var(--surface);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.task .txt{min-width:0}
+.task.checked .txt{color:var(--done);text-decoration:line-through}
+.who{flex:none;font:600 11px var(--f-mono);padding:2px 7px;border-radius:4px;margin-top:1px;width:62px;text-align:center}
+.who.J{background:var(--jasper-soft);color:var(--jasper)}
+.who.A{background:var(--aditya-soft);color:var(--aditya)}
+.who.B{background:var(--both-soft);color:var(--both)}
+.task .note{display:block;font-size:12.5px;color:var(--muted)}
+.task.checked .note{text-decoration:none}
+.metric{margin-top:10px;font-size:13px;display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border:1px dashed var(--line);border-radius:8px}
+.metric .label{flex:none;margin-top:2px;color:var(--accent)}
+.hide-done .task.checked{display:none}
+
+/* reference */
+.ref{padding-block:40px 64px}
+.ref-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;min-width:0}
+.panel h3{font-size:18px;margin-bottom:10px}
+.panel ul{margin:0;padding-left:18px;display:grid;gap:5px;font-size:14px}
+.panel.wide{grid-column:1/-1}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.warn{border-color:var(--bf)}
+.warn h3{color:var(--bf)}
+.qa{display:flex;gap:10px;align-items:flex-start;padding:4px 0;cursor:pointer;font-size:14px}
+.qa.checked span:last-child{color:var(--done);text-decoration:line-through}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--muted);align-items:center}
+
+@media (max-width:820px){
+  .rail{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ref-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .hero-grid{grid-template-columns:1fr}
+  .rail{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .day{grid-template-columns:1fr;gap:8px}
+  .date{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+  .date .tag,.date .dc{margin-top:0}
+  .who{width:auto}
+  .prog{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="label">Jasper × Aditya · dropshipping launch plan</div>
+      <h1>Road to <em>Black Friday</em></h1>
+      <p>One product, picked on Nov 2, live by Nov 12, ads on Nov 15, and a promo ready for Nov 27. Tick tasks as you go. Checks are saved for everyone with the link.</p>
+      <div class="goal">
+        <span>North star: <strong>$10,000</strong> revenue (10 bands) by Dec 1</span>
+        <span>Ad test budget: <strong>$50/day</strong> to start</span>
+        <span>Target price: <strong>~$60</strong>, landed cost <strong>≤$15</strong></span>
+      </div>
+    </div>
+    <div class="count" aria-label="Countdown">
+      <div><b class="mono" id="cdAds">–</b><span class="label">days to ads</span></div>
+      <div class="bfnum"><b class="mono" id="cdBf">–</b><span class="label">days to BF</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="filters" role="group" aria-label="Show tasks for">
+      <button type="button" data-f="all" aria-pressed="true">Everyone</button>
+      <button type="button" data-f="J" aria-pressed="false">Jasper</button>
+      <button type="button" data-f="A" aria-pressed="false">Aditya</button>
+      <button type="button" data-f="B" aria-pressed="false">Both</button>
+    </div>
+    <label class="toggle" for="hideDone"><input type="checkbox" id="hideDone"> Hide done</label>
+    <div class="prog">
+      <div class="pg j"><span>Jasper</span><div class="track"><div class="fill" id="pJ"></div></div><span class="mono" id="tJ">0/0</span></div>
+      <div class="pg a"><span>Aditya</span><div class="track"><div class="fill" id="pA"></div></div><span class="mono" id="tA">0/0</span></div>
+      <div class="pg b"><span>Both</span><div class="track"><div class="fill" id="pB"></div></div><span class="mono" id="tB">0/0</span></div>
+      <span class="sync" id="sync">Saved on this device</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap"><nav class="rail" id="rail" aria-label="Milestones"></nav>
+    <div class="legend"><span class="who J">JASPER</span> ads, creatives, supplier <span class="who A">ADITYA</span> store, site, email, tracking <span class="who B">BOTH</span> research, decisions, money. Swap owners if you split it differently.</div>
+  </div>
+  <div id="plan"></div>
+
+  <section class="ref" id="reference">
+    <div class="wrap">
+      <div class="phase-head"><h2>Reference</h2><span class="range">numbers, rules, and questions</span></div>
+      <div class="ref-grid">
+
+        <div class="panel wide">
+          <h3>Ad metrics and kill rules</h3>
+          <div class="tbl"><table>
+            <thead><tr><th>Metric</th><th>Good</th><th>Kill / fix if</th><th>What it tells you</th></tr></thead>
+            <tbody>
+              <tr><td>Hook rate (3s views ÷ impressions)</td><td class="n">≥ 30%</td><td class="n">&lt; 20%</td><td>The first 3 seconds of the video. Fix the hook, not the product.</td></tr>
+              <tr><td>CTR (link)</td><td class="n">≥ 1.5%</td><td class="n">&lt; 0.8%</td><td>Whether the ad makes people want to know more.</td></tr>
+              <tr><td>CPC (link)</td><td class="n">≤ $1.00</td><td class="n">&gt; $2.00</td><td>Cost to get someone onto the product page.</td></tr>
+              <tr><td>ATCR (add to cart ÷ page views)</td><td class="n">≥ 8%</td><td class="n">&lt; 4%</td><td>Whether the product page and price convince.</td></tr>
+              <tr><td>Checkout → purchase</td><td class="n">≥ 40%</td><td class="n">&lt; 25%</td><td>Shipping cost surprises, trust, payment options.</td></tr>
+              <tr><td>CVR (purchases ÷ sessions)</td><td class="n">≥ 2.5%</td><td class="n">&lt; 1%</td><td>Overall store performance.</td></tr>
+              <tr><td>CPA (cost per purchase)</td><td class="n">≤ $25</td><td class="n">&gt; $45</td><td>The number that decides profit.</td></tr>
+              <tr><td>ROAS</td><td class="n">≥ 2.0</td><td class="n">&lt; 1.3 after 3 days</td><td>Breakeven is about 1.3 at $60 price and $15 landed cost.</td></tr>
+            </tbody>
+          </table></div>
+          <ul style="margin-top:12px">
+            <li><b>Kill rule:</b> an ad set that spends 2× your target CPA (about $50) with zero purchases gets turned off. An ad with no add to carts after $25 gets turned off.</li>
+            <li><b>Scale rule:</b> a winner (ROAS ≥ 2 for 2 days) gets +20% budget every 48 hours. Don't double overnight; it resets learning.</li>
+            <li><b>Don't touch</b> a new ad set for the first 48 hours unless it is clearly burning money.</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Unit economics (fill in real numbers on Nov 3)</h3>
+          <div class="tbl"><table>
+            <tbody>
+              <tr><td>Sale price</td><td class="n">$60.00</td></tr>
+              <tr><td>Product + supplier fee</td><td class="n">−$10.00</td></tr>
+              <tr><td>Shipping (customer pays)</td><td class="n">$0.00</td></tr>
+              <tr><td>Payment fees (~3% + $0.30)</td><td class="n">−$2.10</td></tr>
+              <tr><td>Refunds / chargebacks buffer (5%)</td><td class="n">−$3.00</td></tr>
+              <tr><td><b>Profit before ads</b></td><td class="n"><b>$44.90</b></td></tr>
+              <tr><td>Breakeven CPA</td><td class="n">$44.90</td></tr>
+              <tr><td>Breakeven ROAS (60 ÷ 44.90)</td><td class="n">1.34</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="panel">
+          <h3>Starting budget (about $1,300)</h3>
+          <div class="tbl"><table>
+            <tbody>
+              <tr><td>Shopify plan + domain</td><td class="n">$40</td></tr>
+              <tr><td>Apps (reviews, email, upsell) for 1 month</td><td class="n">$60</td></tr>
+              <tr><td>Product samples (2 units, fast shipping)</td><td class="n">$60</td></tr>
+              <tr><td>Creative tools (Higgsfield, CapCut Pro)</td><td class="n">$50</td></tr>
+              <tr><td>Ad account warmup spend (Nov 8 to 14)</td><td class="n">$70</td></tr>
+              <tr><td>Test phase, $50/day × 10 days</td><td class="n">$500</td></tr>
+              <tr><td>Black Friday push reserve</td><td class="n">$500</td></tr>
+              <tr><td><b>Total, split 50/50</b></td><td class="n"><b>$1,280</b></td></tr>
+            </tbody>
+          </table></div>
+          <p class="label" style="margin-top:10px">Stop-loss: if we've burned $600 with no product above 1.3 ROAS, we pause and re-pick.</p>
+        </div>
+
+        <div class="panel wide">
+          <h3>What we need to ask Miguel</h3>
+          <div id="qs"></div>
+        </div>
+
+        <div class="panel warn wide">
+          <h3>Things that can kill the store</h3>
+          <ul>
+            <li><b>Fake reviews.</b> The FTC banned fake and AI-written reviews in 2024, with fines per review, and Meta and Shopify Payments both ban stores for it. Instead: send free units to 5 to 10 friends or micro creators for real reviews and photos, and turn on post-purchase review emails from day one.</li>
+            <li><b>Stolen videos.</b> Reposted creator content gets copyright strikes, and repeated strikes are a fast way to lose an ad account. Use AI-generated video (Higgsfield), your own filming, or paid UGC creators with usage rights.</li>
+            <li><b>New ad accounts.</b> Brand-new Meta accounts that spend big on day one get restricted. That's why the warmup starts Oct 30 and ads only scale after Nov 15.</li>
+            <li><b>Shipping times.</b> If the product takes 15+ days, Black Friday buyers won't get it before Christmas and you'll eat chargebacks. Pick a supplier with US stock or 7 to 10 day shipping, and state shipping times clearly.</li>
+            <li><b>Payouts on hold.</b> Shopify Payments and PayPal often hold funds for new stores when sales spike. Keep ad money separate from expected revenue.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+const PHASES = [
+ { id:"p0", name:"Set up and learn", range:"Oct 29 – Nov 1",
+   goal:"<b>Goal:</b> store shell exists, ad accounts are warming up, and both of you know how product research and the Meta algorithm work before the Nov 2 pick.",
+   days:[
+  { d:"2026-10-29", tag:"Kickoff", title:"Create the store and lock the plan",
+    deadline:"Shopify store live as a draft by end of day.",
+    t:[
+     ["A","Create the Shopify store (start the free trial, pick a basic plan later)","Use a neutral brand name that could fit more than one product in the same niche."],
+     ["A","Start vibe coding the website / theme","The storefront design is happening in its own thread. Focus on a clean product page template first."],
+     ["B","Agree on roles, the $1,300 budget, and the 50/50 split. Write it down","Who pays what, who has final say on ads vs. site."],
+     ["B","Set up a shared tracker (Google Sheet) for products, suppliers, and daily ad numbers",""],
+     ["J","Text Miguel to book a 30 minute call for Oct 31 or Nov 1",""],
+     ["B","Go through this whole schedule together and adjust anything that won't work",""]
+    ]},
+  { d:"2026-10-30", tag:"", title:"Start the ad account warmup",
+    deadline:"Facebook Page, Instagram account and Business Manager created today. Warmup needs 2 weeks.",
+    t:[
+     ["J","Create a Meta Business Manager on an old, real personal Facebook profile (not a brand-new one)","Old accounts with real friends and activity get banned far less."],
+     ["J","Create the brand's Facebook Page and Instagram account and link them","Add profile picture, bio, and website link."],
+     ["J","Post 3 to 5 normal-looking posts on the Page and IG","Then post every 1 to 2 days through Nov 15."],
+     ["J","Add a payment method to the ad account and turn on 2FA on every account",""],
+     ["A","Buy the domain and connect it to Shopify. Set up a brand email (support@...)",""],
+     ["A","Set up Shopify Payments + PayPal + Shop Pay. Verify identity and bank details","Do this early. Verification can take days."]
+    ]},
+  { d:"2026-10-31", tag:"", title:"Learn how the game works",
+    deadline:"Each of you can explain how Meta picks who sees an ad.",
+    t:[
+     ["J","Study how Meta ads delivery works now: broad targeting, the creative is the targeting, Advantage+ campaigns","Watch 2 to 3 recent YouTube breakdowns (2026). Write a 5 bullet summary in the tracker."],
+     ["A","Study what makes a product page convert: above-the-fold layout, offer, reviews, FAQ, sticky add to cart","Screenshot 5 top dropshipping product pages for reference."],
+     ["B","Learn the research tools: Meta Ad Library, TikTok Creative Center, Minea / Kalodata (free trials)",""],
+     ["B","Write the product scorecard together (see criteria in Nov 1 tasks)",""]
+    ]},
+  { d:"2026-11-01", tag:"", title:"Miguel call and research criteria",
+    deadline:"Miguel call done. Scorecard agreed.",
+    t:[
+     ["B","Call Miguel and go through the question list in the Reference section","Take notes into the tracker."],
+     ["B","Finalize the product scorecard: sells for $40 to $80, costs ≤ $15, solves a problem or has a big emotional pull, not sold in every store, video-friendly, light and not breakable, giftable for Black Friday / Christmas",""],
+     ["B","Start scouting. Each of you begins your list of 5 products",""],
+     ["J","Check that the Page and IG accounts are still healthy and keep posting",""]
+    ]}
+ ]},
+ { id:"p1", name:"Pick the one product", range:"Nov 2 – Nov 4",
+   goal:"<b>Goal:</b> one product you are both <b>sure</b> of, a supplier with fast shipping, and a sample on the way.",
+   days:[
+  { d:"2026-11-02", tag:"Milestone", title:"5 products each, then debate to 1",
+    deadline:"Agree on 1 product by end of day.",
+    t:[
+     ["J","Bring 5 products with: price, cost, 2 competitor stores, 3 live Meta ads, and how long those ads have run","Ads running 2+ weeks with multiple versions mean someone is making money."],
+     ["A","Bring 5 products with the same info",""],
+     ["B","Check each product's market: who buys it, age, why they buy it, is it seasonal, is it saturated?",""],
+     ["B","Score all 10 on the scorecard. Cut to the top 3",""],
+     ["B","Defend your picks against each other until you agree on 1 product you are SURE of","Keep the #2 product as a backup if testing flops."]
+    ]},
+  { d:"2026-11-03", tag:"", title:"Pressure test the winner",
+    deadline:"Unit economics filled in with real numbers.",
+    t:[
+     ["B","Fill in the unit economics table with real costs. Breakeven ROAS must be under 2","If profit before ads is under $25, the product is too cheap to test."],
+     ["J","Save the 10 best competitor ads to a swipe file and note their hooks",""],
+     ["A","Read 1 and 2 star reviews of competitors on Amazon / TikTok Shop. List the complaints","Your page and ads should answer those complaints."],
+     ["B","Write 3 marketing angles (problem it solves, transformation, gift)","The strongest angle is usually how it changes their life long term."]
+    ]},
+  { d:"2026-11-04", tag:"Milestone", title:"Find the supplier",
+    deadline:"Supplier picked and sample ordered today.",
+    t:[
+     ["J","Compare 3 suppliers: TeemDrop, CJdropshipping, and one more (AutoDS, Zendrop or an AliExpress agent)","Compare price, shipping time to the US, US warehouse, and reviews."],
+     ["J","Message the top supplier: shipping time, can they handle 50+ orders/day on Black Friday, branded packaging, return policy",""],
+     ["J","Order 1 to 2 samples with the fastest shipping","Use them for real reviews, photos, and filming your own videos."],
+     ["A","Connect the supplier app to Shopify and import the product",""],
+     ["B","More research: Google Trends for the product, TikTok hashtag views, Black Friday search interest",""]
+    ]}
+ ]},
+ { id:"p2", name:"Build the store and the creatives", range:"Nov 5 – Nov 7",
+   goal:"<b>Goal:</b> a product page that looks real and converts, email capture on, and the first 6 video ads drafted.",
+   days:[
+  { d:"2026-11-05", tag:"", title:"Product page and offer",
+    deadline:"Product page fully written.",
+    t:[
+     ["A","Write the product page: benefit headline, 5 bullet benefits, how it works, what's included, guarantee","Ads go straight here. This page matters more than the home page."],
+     ["A","Set the offer: price, bundle (buy 2 save 15%), and a free gift or upsell at checkout",""],
+     ["A","Write the FAQ (8 to 10 questions): shipping time, returns, how to use, who it's for, payment security",""],
+     ["J","Write 10 hooks and 3 full video scripts (15 to 30 seconds) from the angles",""],
+     ["J","Set up Higgsfield and test 2 AI video generations of the product",""]
+    ]},
+  { d:"2026-11-06", tag:"", title:"Trust, email, and tracking",
+    deadline:"Pixel firing and email popup live.",
+    t:[
+     ["A","Install the Meta Pixel and Conversions API through the Facebook & Instagram Shopify app","Check with Meta Pixel Helper: PageView, ViewContent, AddToCart, Purchase."],
+     ["A","Set up email (Klaviyo free or Shopify Email): signup popup with 10% off, welcome email, abandoned cart flow (3 emails)","The list brings repeat sales and powers the Black Friday push."],
+     ["A","Install a review app (Judge.me) and set up the post-purchase review request email","Real reviews only. See the warning in Reference."],
+     ["A","Write the policy pages: shipping, returns/refunds, privacy, terms, contact. Put shipping times clearly",""],
+     ["J","Film or generate the first 3 videos from the scripts",""]
+    ]},
+  { d:"2026-11-07", tag:"", title:"Make the store look real",
+    deadline:"Store looks finished on mobile.",
+    t:[
+     ["A","Home page, About page, and 3 to 5 related products on the products page so it looks like a real brand","Nobody needs to buy them. They just make the store look legit."],
+     ["A","Check the site on a phone. Most traffic will be mobile. Fix anything slow or ugly",""],
+     ["J","Make 3 more videos (6 total): different hooks, one UGC style, one demo, one gift angle",""],
+     ["J","Write ad copy: 3 primary texts and 3 headlines",""],
+     ["B","Send the 5 to 10 people who will give real reviews a discount code or a free unit",""]
+    ]}
+ ]},
+ { id:"p3", name:"Test and launch", range:"Nov 8 – Nov 14",
+   goal:"<b>Goal:</b> store open with a successful test order by Nov 12, ad account warmed, and 10+ videos ready for Nov 15.",
+   days:[
+  { d:"2026-11-08", tag:"Milestone", title:"Test week starts",
+    deadline:"Everything ready for a test order.",
+    t:[
+     ["A","Full QA: every button, discount codes, upsell, mobile checkout, emails firing",""],
+     ["J","Start the warmup ad: $5 to $10/day page-likes or engagement ad on a normal post","Gets the ad account spending a little before the real test."],
+     ["J","Post 2 of the videos organically on IG Reels and TikTok to see which hooks get views",""],
+     ["B","Plan the testing setup for Nov 15 together (see Nov 14)",""]
+    ]},
+  { d:"2026-11-09", tag:"", title:"Test order",
+    deadline:"One real test order placed and fulfilled.",
+    t:[
+     ["A","Place a real test order with a real card. Check the confirmation email, the supplier order, and tracking",""],
+     ["A","Check that the Purchase event shows up in Meta Events Manager",""],
+     ["J","Make 4 more videos (10 total) based on what got views organically",""],
+     ["B","Refund the test order and confirm refunds work",""]
+    ]},
+  { d:"2026-11-10", tag:"", title:"Open the store",
+    deadline:"Remove the password page. Store is live.",
+    t:[
+     ["A","Remove the store password and launch publicly",""],
+     ["A","Set up a simple customer service routine: support email, a reply template for 'where's my order', checking once a day",""],
+     ["J","Keep posting organically every day (1 to 2 videos)",""],
+     ["B","Share the store with friends and family for first real orders and reviews",""]
+    ]},
+  { d:"2026-11-11", tag:"", title:"Buffer day",
+    deadline:"Catch up on anything late.",
+    t:[
+     ["B","Finish anything from Nov 5 to 10 that slipped",""],
+     ["J","Check the ad account status. No restrictions? Good",""],
+     ["A","Run a page speed check (PageSpeed Insights). Remove apps that slow it down",""]
+    ]},
+  { d:"2026-11-12", tag:"Milestone", title:"Launched",
+    deadline:"Store live, test order done, sample in hand, 10 videos ready.",
+    t:[
+     ["J","Film the real sample (unboxing, using it, close-ups) if it has arrived",""],
+     ["A","Add the real photos from the sample to the product page",""],
+     ["B","Launch check: store live, pixel working, 10 videos, 3 ad copies, account warmed. Anything missing?",""]
+    ]},
+  { d:"2026-11-13", tag:"", title:"Ready the campaign",
+    deadline:"Campaigns built and saved as drafts.",
+    t:[
+     ["J","Build the test campaign as a draft: Sales objective, broad targeting (US, 18 to 65), Purchase optimization",""],
+     ["J","Upload all 10 videos with copy. Name everything clearly (hook name + version)",""],
+     ["A","Set up a daily numbers sheet: spend, CTR, CPC, ATC, purchases, CPA, ROAS, profit",""]
+    ]},
+  { d:"2026-11-14", tag:"", title:"Final check before ads",
+    deadline:"Agree on budget and kill rules.",
+    t:[
+     ["B","Agree on the plan for Nov 15: 1 campaign, 3 ad sets × 3 to 4 videos, about $50/day total","Or one Advantage+ campaign with all 10 videos if Jasper's research says that works better."],
+     ["B","Re-read the kill and scale rules in Reference so nobody panics on day 1",""],
+     ["A","Final mobile test of the product page and checkout",""]
+    ]}
+ ]},
+ { id:"p4", name:"Run ads and find a winner", range:"Nov 15 – Nov 21",
+   goal:"<b>Goal:</b> find at least one ad above 2.0 ROAS and get the first 20 to 30 orders. Check numbers every morning together.",
+   days:[
+  { d:"2026-11-15", tag:"Milestone", title:"Ads go live",
+    deadline:"Campaign published in the morning.",
+    t:[
+     ["J","Publish the test campaign at about $50/day","Launch in the morning so you can watch the first day."],
+     ["J","Check that the ads were approved. Fix any rejected ones",""],
+     ["A","Watch Shopify live view and check that ATC and Purchase events come through",""],
+     ["B","Don't touch the ads for 48 hours unless something is broken",""]
+    ]},
+  { d:"2026-11-16", tag:"", title:"Day 2 numbers",
+    deadline:"Log numbers in the tracker.",
+    t:[
+     ["B","Morning check: log spend, CTR, CPC, ATC, purchases",""],
+     ["J","Start making 3 new videos based on the best hook so far",""],
+     ["A","Answer any customer emails. Fulfill orders through the supplier app",""]
+    ]},
+  { d:"2026-11-17", tag:"", title:"First cuts",
+    deadline:"Kill losers by the rules.",
+    t:[
+     ["J","Turn off ads that hit the kill rules (CTR under 0.8%, no ATC after $25)",""],
+     ["J","Launch 3 new videos into a new ad set",""],
+     ["A","If ATC is high but purchases are low, fix the checkout: shipping cost, trust badges, payment options",""],
+     ["A","If CTR is good but ATC is low, fix the product page: price, first image, headline",""]
+    ]},
+  { d:"2026-11-18", tag:"", title:"Iterate",
+    deadline:"",
+    t:[
+     ["B","Morning numbers check",""],
+     ["J","Make 3 variations of the best ad (new hook, same body)",""],
+     ["A","Send the first email to the list: what the product is and a teaser for Black Friday",""]
+    ]},
+  { d:"2026-11-19", tag:"", title:"Scale or switch",
+    deadline:"Decide: scale this product or test the backup.",
+    t:[
+     ["B","If any ad is above 2.0 ROAS for 2 days, raise its budget 20%",""],
+     ["B","If nothing is above 1.3 ROAS after about $250 spent, decide whether to test the backup product","Talk it out. Check the stop-loss in the budget panel."],
+     ["J","Keep the organic posting going",""]
+    ]},
+  { d:"2026-11-20", tag:"", title:"Plan the Black Friday offer",
+    deadline:"BF offer decided.",
+    t:[
+     ["B","Decide the BF offer: e.g. 30% off, buy 2 get 1 free, or a free gift. Make sure profit still beats the ad cost","Bundles usually beat straight discounts because the order value goes up."],
+     ["J","Confirm with the supplier they have stock for 3 to 5× normal orders and their BF shipping times",""],
+     ["A","Plan the BF emails: early access (Nov 26), launch (Nov 27), reminder (Nov 28), Cyber Monday (Nov 30), last chance (Dec 1)",""]
+    ]},
+  { d:"2026-11-21", tag:"", title:"Week 1 review",
+    deadline:"Write down what worked.",
+    t:[
+     ["B","Review the week: best hook, best angle, CPA, total profit/loss. Write it in the tracker",""],
+     ["B","Decide the BF ad budget (most of the $500 reserve goes to proven ads, not new tests)",""],
+     ["B","Check real reviews are coming in. Ask happy customers for photos",""]
+    ]}
+ ]},
+ { id:"p5", name:"Black Friday push", range:"Nov 22 – Nov 27",
+   goal:"<b>Goal:</b> BF creatives and promo ready by Nov 25, budget raised on proven winners, and the biggest sales day of the year.",
+   days:[
+  { d:"2026-11-22", tag:"", title:"BF creatives",
+    deadline:"",
+    t:[
+     ["J","Make 4 Black Friday versions of the winning ads (add the offer + 'Black Friday' in the first 2 seconds)",""],
+     ["A","Build the BF version of the site: banner, countdown timer, discount automation, updated product page",""],
+     ["B","Morning numbers check",""]
+    ]},
+  { d:"2026-11-23", tag:"", title:"Set up the promo",
+    deadline:"Promo scheduled but not live.",
+    t:[
+     ["A","Set up the BF discount to turn on automatically on Nov 27 at 12am and test it with a hidden code",""],
+     ["A","Write and schedule all the BF emails",""],
+     ["J","Build the BF campaign as a draft with the new videos",""]
+    ]},
+  { d:"2026-11-24", tag:"", title:"Early buzz",
+    deadline:"",
+    t:[
+     ["A","Add an 'early access' signup to the site: join the list to get the deal first",""],
+     ["J","Run a small ad sending people to the early access signup (optional, $10 to $15/day)",""],
+     ["J","Post BF teaser videos organically",""]
+    ]},
+  { d:"2026-11-25", tag:"Milestone", title:"Everything ready",
+    deadline:"All BF ads, emails, site changes done.",
+    t:[
+     ["B","Full BF check: discount works, emails scheduled, ads in draft, supplier confirmed, support replies ready",""],
+     ["B","Raise budget on proven winners gradually (+20% today) so it's higher by Friday without resetting learning",""],
+     ["A","Make sure the 'where's my order' reply template mentions holiday shipping times",""]
+    ]},
+  { d:"2026-11-26", tag:"Thanksgiving", title:"Early access",
+    deadline:"Early access email goes out in the evening.",
+    t:[
+     ["A","Send the early access email to the list (deal starts now for subscribers)",""],
+     ["J","Publish the BF campaign so it's through review before Friday morning",""],
+     ["B","Raise budget again on winners",""]
+    ]},
+  { d:"2026-11-27", tag:"Black Friday", title:"Black Friday",
+    deadline:"Lock in on ad spend. This is the day.", bf:true,
+    t:[
+     ["J","Check ads every 2 to 3 hours. Move budget toward whatever is getting the cheapest purchases",""],
+     ["J","Don't launch untested ads today. Scale what's proven",""],
+     ["A","Watch the store, answer customer messages fast, fulfill orders the same day",""],
+     ["A","Send the BF launch email in the morning",""],
+     ["B","End-of-day numbers: revenue, orders, ROAS, profit",""]
+    ]}
+ ]},
+ { id:"p6", name:"Cyber weekend and after", range:"Nov 28 – Dec 5",
+   goal:"<b>Goal:</b> squeeze the rest of the holiday traffic, keep customers happy, and decide what happens next.",
+   days:[
+  { d:"2026-11-28", tag:"", title:"Small Business Saturday",
+    deadline:"",
+    t:[
+     ["A","Send the reminder email: deal ends Monday",""],
+     ["J","Keep budget up on winners. Cut anything that dropped below breakeven",""],
+     ["A","Fulfill all BF orders and check the supplier has shipped them",""]
+    ]},
+  { d:"2026-11-29", tag:"", title:"Prep Cyber Monday",
+    deadline:"",
+    t:[
+     ["J","Swap 'Black Friday' for 'Cyber Monday' in ad text and videos",""],
+     ["A","Update the site banner and schedule the Cyber Monday email",""]
+    ]},
+  { d:"2026-11-30", tag:"Cyber Monday", title:"Cyber Monday",
+    deadline:"",
+    t:[
+     ["J","Run the Cyber Monday ads and watch them like BF",""],
+     ["A","Send the Cyber Monday email and a last-chance email in the evening",""]
+    ]},
+  { d:"2026-12-01", tag:"Milestone", title:"Results day",
+    deadline:"Count it up. Did we hit 10 bands?",
+    t:[
+     ["B","Total revenue, ad spend, product cost, fees, and real profit. Split the profit",""],
+     ["A","Turn off the BF discount and set the site back to normal pricing",""],
+     ["B","Ask BF buyers for reviews (the review app should do this automatically)",""]
+    ]},
+  { d:"2026-12-05", tag:"", title:"Decide what's next",
+    deadline:"",
+    t:[
+     ["B","Decide: scale this product for Christmas (shipping cut-off is around Dec 12 to 15), test a new product, or stop",""],
+     ["B","Write down the 5 biggest lessons and what we'd do differently",""],
+     ["A","Set up a Christmas email and a holiday shipping cut-off banner if continuing",""]
+    ]}
+ ]}
+];
+
+const QUESTIONS = [
+ "How do you run the ads without getting banned?",
+ "How many products did you sell before you landed on books?",
+ "What mistakes did you make in the beginning?",
+ "How much capital did you have, and how much did you blow before it became profitable?",
+ "Why did you choose books?",
+ "How did you know to go all in on a product?",
+ "What's your strategy for ad spend? When do you raise it?",
+ "What are your metrics? CTR, ATCR, CPA, ROAS",
+ "Are the other products on your site real, or old failed tests?",
+ "Where do your videos come from, and how many new ones do you make a week?",
+ "Other stuff about products"
+];
+
+const MILESTONES = [
+ ["2026-10-29","Store created"],["2026-11-02","Pick 1 product"],["2026-11-04","Supplier found"],
+ ["2026-11-12","Store launched"],["2026-11-15","Ads live"],["2026-11-27","Black Friday",true],["2026-12-01","Results"]
+];
+
+const NAMES = {J:"JASPER",A:"ADITYA",B:"BOTH"};
+const fmt = (iso, o) => new Date(iso+"T12:00:00").toLocaleDateString("en-US", o);
+const todayISO = (()=>{const n=new Date();return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0")})();
+const daysUntil = iso => Math.ceil((new Date(iso+"T00:00:00") - new Date(todayISO+"T00:00:00"))/864e5);
+
+let checks = {};
+try { checks = JSON.parse(localStorage.getItem("rtbf-checks")||"{}"); } catch(e) {}
+let db = null;
+
+// render plan
+const plan = document.getElementById("plan");
+const allTasks = [];
+for (const p of PHASES) {
+  const sec = document.createElement("section");
+  sec.className = "phase"; sec.id = p.id;
+  let html = `<div class="wrap"><div class="phase-head"><h2>${p.name}</h2><span class="range">${p.range}</span></div><p class="phase-goal">${p.goal}</p>`;
+  for (const d of p.days) {
+    const cls = ["day"]; if (d.d===todayISO) cls.push("today"); if (d.bf) cls.push("bfday");
+    const du = daysUntil(d.d);
+    const dc = du===0 ? "Today" : du>0 ? `in ${du} day${du>1?"s":""}` : "";
+    html += `<div class="${cls.join(" ")}" id="d-${d.d}"><div class="date"><div class="dow">${fmt(d.d,{weekday:"short"})}</div><div class="dn mono">${fmt(d.d,{month:"short",day:"numeric"})}</div>${d.tag?`<span class="tag">${d.tag}</span>`:""}<div class="dc">${dc}</div></div><div class="dbody"><h3>${d.title}</h3>${d.deadline?`<div class="deadline"><b>Deadline:</b> ${d.deadline}</div>`:""}<ul class="tasks">`;
+    d.t.forEach((t,i)=>{
+      const id = d.d.slice(5).replace("-","") + "-" + i;
+      allTasks.push({id, o:t[0]});
+      html += `<li><label class="task" data-o="${t[0]}" data-id="${id}" for="c-${id}"><input type="checkbox" id="c-${id}" data-id="${id}"><span class="box"></span><span class="who ${t[0]}">${NAMES[t[0]]}</span><span class="txt">${t[1]}${t[2]?`<span class="note">${t[2]}</span>`:""}</span></label></li>`;
+    });
+    html += `</ul></div></div>`;
+  }
+  sec.innerHTML = html + `</div>`;
+  plan.appendChild(sec);
+}
+
+// milestones
+document.getElementById("rail").innerHTML = MILESTONES.map(([d,t,bf])=>
+  `<a class="ms${bf?" bf":""}${daysUntil(d)<0?" past":""}" href="#d-${d}"><div class="d">${fmt(d,{month:"short",day:"numeric"})}</div><div class="t">${t}</div></a>`).join("");
+
+// questions
+document.getElementById("qs").innerHTML = QUESTIONS.map((q,i)=>{
+  const id = "q-"+i; allTasks.push({id, o:"Q"});
+  return `<label class="qa" data-id="${id}" for="c-${id}"><input type="checkbox" id="c-${id}" data-id="${id}"><span class="box"></span><span>${q}</span></label>`;
+}).join("");
+
+// countdown
+document.getElementById("cdAds").textContent = Math.max(0,daysUntil("2026-11-15"));
+document.getElementById("cdBf").textContent = Math.max(0,daysUntil("2026-11-27"));
+
+function paint(){
+  document.querySelectorAll("input[data-id]").forEach(inp=>{
+    const on = !!checks[inp.dataset.id];
+    inp.checked = on;
+    inp.closest("label").classList.toggle("checked", on);
+  });
+  for (const o of ["J","A","B"]) {
+    const list = allTasks.filter(t=>t.o===o), done = list.filter(t=>checks[t.id]).length;
+    document.getElementById("p"+o).style.width = (list.length?done/list.length*100:0)+"%";
+    document.getElementById("t"+o).textContent = done+"/"+list.length;
+  }
+}
+paint();
+
+document.addEventListener("change", async e=>{
+  const id = e.target.dataset && e.target.dataset.id;
+  if (!id) return;
+  const on = e.target.checked;
+  if (on) checks[id] = true; else delete checks[id];
+  paint();
+  try { localStorage.setItem("rtbf-checks", JSON.stringify(checks)); } catch(err) {}
+  if (db) {
+    try { await db.doc("checks/"+id).set({done:on, at:Date.now()}); }
+    catch(err) { document.getElementById("sync").textContent = "Couldn't save for everyone. Saved on this device."; }
+  }
+});
+
+// filters
+const filterBtns = document.querySelectorAll(".filters button");
+function applyFilter(f){
+  filterBtns.forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.f===f)));
+  document.querySelectorAll(".task").forEach(l=>{ l.parentElement.hidden = !(f==="all" || l.dataset.o===f); });
+  try { localStorage.setItem("rtbf-filter", f); } catch(e) {}
+}
+filterBtns.forEach(b=>b.addEventListener("click",()=>applyFilter(b.dataset.f)));
+let savedF = "all"; try { savedF = localStorage.getItem("rtbf-filter") || "all"; } catch(e) {}
+applyFilter(savedF);
+const hd = document.getElementById("hideDone");
+hd.addEventListener("change",()=>document.body.classList.toggle("hide-done", hd.checked));
+
+// shared checks (Firebase Firestore). Fill in firebase-config.js to turn it on.
+(()=>{
+  const cfg = window.FIREBASE_CONFIG;
+  const sync = document.getElementById("sync");
+  if (!cfg || !cfg.projectId || cfg.projectId.startsWith("PASTE") || !window.firebase) { sync.textContent = "Not synced yet. Saved on this device."; return; }
+  try {
+    firebase.initializeApp(cfg);
+    const fs = firebase.firestore();
+    const col = fs.collection("checks");
+    db = { doc: path => fs.doc(path) };
+    sync.textContent = "Synced for everyone";
+    col.onSnapshot(snap=>{
+      const next = {};
+      snap.forEach(d=>{ const v=d.data(); if (v && v.done) next[d.id]=true; });
+      checks = next; paint();
+      try { localStorage.setItem("rtbf-checks", JSON.stringify(checks)); } catch(e) {}
+    }, ()=>{ sync.textContent = "Couldn't reach the database. Saved on this device."; });
+  } catch(e) { sync.textContent = "Couldn't reach the database. Saved on this device."; }
+})();
+</script>
+
+</body>
+</html>
