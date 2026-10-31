@@ -30,7 +30,6 @@
     }
   },
   "order": [
-    "announcement",
     "header"
   ]
 }

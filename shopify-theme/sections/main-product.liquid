@@ -62,10 +62,10 @@
             {%- when 'rating' -%}
               {%- assign block_rating = product.metafields.reviews.rating.value.rating | default: block.settings.rating -%}
               {%- assign block_count = product.metafields.reviews.rating_count | default: block.settings.count_text -%}
-              <div class="product__rating" {{ block.shopify_attributes }}>
+              <a class="product__rating" href="#reviews" {{ block.shopify_attributes }}>
                 {% render 'stars', rating: block_rating, size: 16 %}
-                <span>{{ block_count }}</span>
-              </div>
+                <span>{%- if product.metafields.reviews.rating_count.value > 0 -%}{{ block_count }} reviews{%- else -%}{{ block.settings.count_text }}{%- endif -%}</span>
+              </a>
 
             {%- when 'title' -%}
               <h1 class="product__title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
@@ -175,9 +175,9 @@
 
             {%- when 'trust' -%}
               <ul class="product__trust" {{ block.shopify_attributes }}>
-                <li>{% render 'icon', name: 'truck', size: 22 %}<span>{{ block.settings.t1 }}</span></li>
-                <li>{% render 'icon', name: 'return', size: 22 %}<span>{{ block.settings.t2 }}</span></li>
-                <li>{% render 'icon', name: 'lock', size: 22 %}<span>{{ block.settings.t3 }}</span></li>
+                <li><span>{{ block.settings.t1 }}</span></li>
+                <li><span>{{ block.settings.t2 }}</span></li>
+                <li><span>{{ block.settings.t3 }}</span></li>
               </ul>
 
             {%- when 'guarantee' -%}

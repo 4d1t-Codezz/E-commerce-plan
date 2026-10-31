@@ -11,10 +11,10 @@
         "text": "<p>A multivitamin soft chew made with human-grade ingredients. 90 chews in every jar.</p>",
         "button_label": "Shop now",
         "button_link": "",
-        "points": "Daily multivitamin | 90 soft chews | Human-grade ingredients | Subscribe and save 10%",
+        "points": "",
         "background": "plain",
         "layout": "overlay",
-        "image": "shopify://shop_images/stillwag-vivid.png"
+        "image": "shopify://shop_images/stillwag-hero-v4.png"
       }
     },
     "jar": {
@@ -23,9 +23,10 @@
         "style": "jar",
         "kicker": "",
         "heading": "Dog is Human Multivitamin",
-        "text": "<p>Human-grade ingredients for daily dog health and wellness. That's what it says on the jar, and that's what's inside.</p>",
+        "text": "<p>Human-grade ingredients for daily dog health and wellness. 90 soft chews per jar.</p>",
         "button_label": "Shop now",
-        "chips": "Multivitamin | 90 soft chews | Human-grade ingredients"
+        "chips": "Multivitamin | 90 soft chews",
+        "image": "shopify://shop_images/stillwag-jar-cutout.png"
       }
     },
     "band": {
@@ -34,7 +35,7 @@
         "style": "band",
         "kicker": "",
         "heading": "Subscribe and save 10%",
-        "text": "<p>Get a jar every month for 10% less. Skip or cancel anytime from your account.</p>",
+        "text": "<p>A new jar every month. Cancel anytime.</p>",
         "button_label": "Subscribe"
       }
     }

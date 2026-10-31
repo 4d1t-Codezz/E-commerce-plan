@@ -32,7 +32,7 @@
           "settings": {
             "t1": "Secure checkout",
             "t2": "Subscribe and save 10%",
-            "t3": "Encrypted payments"
+            "t3": "We reply within 3 days"
           }
         },
         "description": {
@@ -62,22 +62,32 @@
         "shipping": {
           "type": "collapsible",
           "settings": {
-            "heading": "Shipping & returns",
+            "heading": "Shipping",
             "icon": "truck",
             "metafield_key": "",
-            "content": "<p>Shipping is calculated at checkout. Tracking is emailed when your order ships.</p>"
+            "content": "<p>Shipping cost is calculated at checkout based on your address. Tracking is emailed to you when your order ships.</p><p>Questions about an order? Contact us and we'll reply within 3 days.</p>"
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "rating": "0",
+            "count_text": "No reviews yet"
           }
         }
       },
       "block_order": [
+        "rating",
         "title",
         "price",
         "benefits",
         "variants",
         "buy",
+        "trust",
         "description",
         "ingredients",
-        "howto"
+        "howto",
+        "shipping"
       ],
       "settings": {
         "gallery_badge": ""
@@ -91,23 +101,23 @@
           "settings": {
             "icon": "leaf",
             "title": "Human-grade ingredients",
-            "text": "Made with the same quality ingredients you'd want in your own vitamins."
+            "text": "The label says it plainly: human-grade ingredients for daily dog health and wellness."
           }
         },
         "p2": {
           "type": "point",
           "settings": {
             "icon": "flask",
-            "title": "Daily health and wellness",
-            "text": "A multivitamin for everyday support, in a chew instead of a pill."
+            "title": "One daily multivitamin",
+            "text": "A single multivitamin chew instead of a shelf of separate supplements."
           }
         },
         "p3": {
           "type": "point",
           "settings": {
             "icon": "clock",
-            "title": "Soft chews",
-            "text": "Soft and easy to give, even to older dogs with sensitive teeth."
+            "title": "90 soft chews",
+            "text": "Soft chews instead of pills. The feeding guide on the jar tells you how many for your dog's weight."
           }
         }
       },
@@ -119,7 +129,7 @@
       "settings": {
         "product_image_index": 2,
         "eyebrow": "",
-        "heading": "Why owners switch to Stillwag",
+        "heading": "What's in the jar",
         "background": "soft"
       }
     },
@@ -130,27 +140,68 @@
           "type": "question",
           "settings": {
             "question": "How long does one jar last?",
-            "answer": "<p>Each jar has 90 soft chews. How long it lasts depends on your dog's size; the feeding guide is on the jar.</p>"
+            "answer": "<p>Each jar has 90 soft chews. How long it lasts depends on your dog's size, so check the feeding guide on the jar.</p>"
           }
         },
         "q2": {
           "type": "question",
           "settings": {
-            "question": "When will my order ship?",
-            "answer": "<p>Orders ship within 1\u20132 business days and usually arrive in 5\u20138 business days.</p>"
+            "question": "What's in it?",
+            "answer": "<p>It's a multivitamin soft chew made with human-grade ingredients. The full ingredient list is on the jar label, shown in the product photos.</p>"
           }
         },
         "q3": {
           "type": "question",
           "settings": {
+            "question": "How does the subscription work?",
+            "answer": "<p>Pick \"Subscribe monthly\" above the add to cart button. You get a new jar every month at 10% off, and you can skip or cancel from your account.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "How much is shipping?",
+            "answer": "<p>Shipping is calculated at checkout based on where you live. You'll see the exact cost before you pay.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "How do I track my order?",
+            "answer": "<p>We email you a tracking link as soon as your order ships.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
             "question": "Can my dog take it with medication?",
             "answer": "<p>If your dog is on prescription medication or has a health condition, check with your vet before starting any supplement.</p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "question": "Which pack should I get?",
+            "answer": "<p>One jar is good for trying it. The 3 and 6 jar packs cost less per jar if you already know your dog likes it.</p>"
+          }
+        },
+        "q8": {
+          "type": "question",
+          "settings": {
+            "question": "How do I contact you?",
+            "answer": "<p>Use the contact page and we'll get back to you within 3 days.</p>"
           }
         }
       },
       "block_order": [
         "q1",
-        "q3"
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
       ],
       "settings": {
         "eyebrow": "",
@@ -160,13 +211,6 @@
         "background": "plain"
       }
     },
-    "related": {
-      "type": "related-products",
-      "settings": {
-        "heading": "You May Also Like",
-        "limit": 3
-      }
-    },
     "marquee": {
       "type": "marquee",
       "settings": {
@@ -174,13 +218,23 @@
         "bg": "#CFE7FB",
         "fg": "#0F1E2E"
       }
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "Reviews",
+        "empty_title": "Be the first to review this",
+        "empty_text": "Bought a jar? Tell us how your dog gets on with it.",
+        "button_label": "Write a review",
+        "button_link": "/pages/contact"
+      }
     }
   },
   "order": [
     "main",
     "marquee",
     "highlights",
-    "faq",
-    "related"
+    "reviews",
+    "faq"
   ]
 }
