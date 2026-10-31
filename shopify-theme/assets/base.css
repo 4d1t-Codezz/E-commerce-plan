@@ -1130,3 +1130,4 @@ body.sw-vivid { background:
   .header__search--desk { display: inline-flex !important; width: auto !important; }
   .header__right { margin-left: 0 !important; }
 }
+.sw-cards--benefits .sw-card__title::before { content: none !important; display: none !important; }
