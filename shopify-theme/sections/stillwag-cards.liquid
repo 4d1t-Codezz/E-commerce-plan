@@ -1,5 +1,9 @@
 <section class="section sw-cards sw-cards--{{ section.settings.style }}">
-  <div class="page-width">
+  <div class="page-width{% if section.settings.image != blank %} sw-cards__split{% endif %}">
+    {%- if section.settings.image != blank -%}
+      <div class="sw-cards__media">{{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', class: 'sw-cards__img', alt: section.settings.image.alt }}</div>
+    {%- endif -%}
+    <div class="sw-cards__main">
     {%- if section.settings.heading != blank -%}
       <div class="sw-cards__head">
         <h2 class="h2">{{ section.settings.heading }}</h2>
@@ -9,12 +13,13 @@
     <ul class="sw-cards__grid" role="list">
       {%- for block in section.blocks -%}
         <li class="sw-card" {{ block.shopify_attributes }}>
-          {%- if block.settings.icon != 'none' -%}<span class="sw-card__icon">{% render 'icon', name: block.settings.icon, size: 34 %}</span>{%- endif -%}
+          {%- if block.settings.icon != 'none' and section.settings.style == 'trust' -%}<span class="sw-card__icon">{% render 'icon', name: block.settings.icon, size: 34 %}</span>{%- endif -%}
           <p class="sw-card__title">{{ block.settings.title }}</p>
           {%- if block.settings.text != blank -%}<p class="sw-card__text">{{ block.settings.text }}</p>{%- endif -%}
         </li>
       {%- endfor -%}
     </ul>
+    </div>
   </div>
 </section>
 
@@ -23,6 +28,7 @@
   "name": "Stillwag cards",
   "settings": [
     { "type": "select", "id": "style", "label": "Style", "options": [{ "value": "trust", "label": "Trust row" }, { "value": "benefits", "label": "Benefits" }], "default": "trust" },
+    { "type": "image_picker", "id": "image", "label": "Image (benefits style)" },
     { "type": "text", "id": "heading", "label": "Heading" },
     { "type": "text", "id": "text", "label": "Text" }
   ],

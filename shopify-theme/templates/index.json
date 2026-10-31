@@ -93,7 +93,8 @@
       "settings": {
         "style": "benefits",
         "heading": "What it does",
-        "text": "A daily multivitamin that supports your older dog's overall health and wellness."
+        "text": "A daily multivitamin that supports your older dog's overall health and wellness.",
+        "image": "shopify://shop_images/stillwag-outdoors.png"
       },
       "blocks": {
         "c1": {
@@ -252,11 +253,11 @@
   "order": [
     "hero",
     "marquee",
-    "trust",
     "jar",
-    "wave",
     "benefits",
+    "wave",
     "band",
+    "trust",
     "faq"
   ]
 }
