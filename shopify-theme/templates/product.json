@@ -228,10 +228,59 @@
         "button_label": "Write a review",
         "button_link": "/pages/contact"
       }
+    },
+    "trust": {
+      "type": "stillwag-cards",
+      "settings": {
+        "style": "trust",
+        "heading": "",
+        "text": ""
+      },
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "icon": "truck",
+            "title": "Tracked shipping",
+            "text": "Tracking link emailed when your order ships"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "icon": "lock",
+            "title": "Secure checkout",
+            "text": "Payments handled by Shopify"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "icon": "mail",
+            "title": "Real support",
+            "text": "We reply within 3 days"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "icon": "gift",
+            "title": "Save 10% monthly",
+            "text": "Subscribe, skip or cancel from your account"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
     }
   },
   "order": [
     "main",
+    "trust",
     "marquee",
     "highlights",
     "reviews",

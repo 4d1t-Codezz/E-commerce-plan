@@ -8,7 +8,7 @@
         "media_badge": "",
         "eyebrow": "",
         "heading": "Daily vitamins for older dogs",
-        "text": "<p>A multivitamin soft chew made with human-grade ingredients. 90 chews in every jar.</p>",
+        "text": "<p>A daily multivitamin soft chew that supports your older dog's overall health and wellness. Made with human-grade ingredients, 90 chews per jar.</p>",
         "button_label": "Shop now",
         "button_link": "",
         "points": "",
@@ -23,7 +23,7 @@
         "style": "jar",
         "kicker": "",
         "heading": "Dog is Human Multivitamin",
-        "text": "<p>Human-grade ingredients for daily dog health and wellness. 90 soft chews per jar.</p>",
+        "text": "<p>One soft chew a day gives your dog a full multivitamin, made with human-grade ingredients. Each jar holds 90 chews.</p>",
         "button_label": "Shop now",
         "chips": "Multivitamin | 90 soft chews",
         "image": "shopify://shop_images/stillwag-jar-cutout.png"
@@ -38,11 +38,208 @@
         "text": "<p>A new jar every month. Cancel anytime.</p>",
         "button_label": "Subscribe"
       }
+    },
+    "trust": {
+      "type": "stillwag-cards",
+      "settings": {
+        "style": "trust",
+        "heading": "Why shop with us",
+        "text": ""
+      },
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "icon": "truck",
+            "title": "Tracked shipping",
+            "text": "Tracking link emailed when your order ships"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "icon": "lock",
+            "title": "Secure checkout",
+            "text": "Payments handled by Shopify"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "icon": "mail",
+            "title": "Real support",
+            "text": "We reply within 3 days"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "icon": "gift",
+            "title": "Save 10% monthly",
+            "text": "Subscribe, skip or cancel from your account"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    },
+    "benefits": {
+      "type": "stillwag-cards",
+      "settings": {
+        "style": "benefits",
+        "heading": "What it does",
+        "text": "A daily multivitamin that supports your older dog's overall health and wellness."
+      },
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "icon": "sparkle",
+            "title": "One chew, every day",
+            "text": "A multivitamin in a single soft chew, instead of a shelf of separate supplements."
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "icon": "leaf",
+            "title": "Human-grade ingredients",
+            "text": "Made with human-grade ingredients, as it says on the jar."
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "icon": "heart",
+            "title": "Easy for older dogs",
+            "text": "A soft chew, so there's no pill to hide in their food."
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "icon": "clock",
+            "title": "90 chews per jar",
+            "text": "Follow the feeding guide on the jar for your dog's weight."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Questions",
+        "text": "",
+        "open_first": false,
+        "background": "plain"
+      },
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "How long does one jar last?",
+            "answer": "<p>Each jar has 90 soft chews. How long it lasts depends on your dog's size, so check the feeding guide on the jar.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How does the subscription work?",
+            "answer": "<p>Choose \"Subscribe monthly\" on the product page. You get a new jar every month at 10% off, and you can skip or cancel from your account.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "How much is shipping?",
+            "answer": "<p>Shipping is calculated at checkout based on where you live. You'll see the exact cost before you pay.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Can my dog take it with medication?",
+            "answer": "<p>If your dog is on prescription medication or has a health condition, check with your vet before starting any supplement.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ]
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "items": "Daily Multivitamin | 90 Soft Chews | Human-Grade Ingredients | For Daily Health And Wellness | Subscribe And Save 10%",
+        "bg": "#FF2D87",
+        "fg": "#FFFFFF"
+      }
+    },
+    "wave": {
+      "type": "wave-banner",
+      "settings": {
+        "image": "shopify://shop_images/stillwag-feeding.png",
+        "asset_image": "",
+        "image_right": true,
+        "heading": "Made for everyday",
+        "text": "<p>No pills to hide in their food and no powders to measure. Just one soft chew a day.</p>",
+        "button_label": "Shop now",
+        "button_link": "",
+        "bg": "#0B4FB8",
+        "fg": "#FFFFFF"
+      },
+      "blocks": {
+        "w1": {
+          "type": "point",
+          "settings": {
+            "title": "Multivitamin.",
+            "text": "Daily support for overall health and wellness."
+          }
+        },
+        "w2": {
+          "type": "point",
+          "settings": {
+            "title": "Human-grade.",
+            "text": "Made with human-grade ingredients."
+          }
+        },
+        "w3": {
+          "type": "point",
+          "settings": {
+            "title": "Soft chew.",
+            "text": "Easy to give, even to picky older dogs."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3"
+      ]
     }
   },
   "order": [
     "hero",
+    "marquee",
+    "trust",
     "jar",
-    "band"
+    "wave",
+    "benefits",
+    "band",
+    "faq"
   ]
 }

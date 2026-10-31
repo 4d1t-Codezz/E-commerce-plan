@@ -10,7 +10,7 @@
         {% render 'icon', name: 'menu', size: 24 %}
       </button>
       <button type="button" class="icon-button header__search" aria-label="Search" data-search-open>
-        {% render 'icon', name: 'search', size: 22 %}
+        {% render 'icon', name: 'search', size: 22 %}<span class="header__label">Search</span>
       </button>
     </div>
 
@@ -24,10 +24,10 @@
 
     <div class="header__right">
       {%- if shop.customer_accounts_enabled -%}
-        <a href="{{ routes.account_url }}" class="icon-button header__account" aria-label="Account">{% render 'icon', name: 'account', size: 22 %}</a>
+        <a href="{{ routes.account_url }}" class="icon-button header__account" aria-label="Account">{% render 'icon', name: 'account', size: 22 %}<span class="header__label">Account</span></a>
       {%- endif -%}
       <a href="{{ routes.cart_url }}" class="icon-button header__cart" aria-label="Cart, {{ cart.item_count }} items">
-        {% render 'icon', name: 'bag', size: 22 %}
+        {% render 'icon', name: 'bag', size: 22 %}<span class="header__label">Cart</span>
         {%- if cart.item_count > 0 -%}<span class="header__cart-count">{{ cart.item_count }}</span>{%- endif -%}
       </a>
     </div>

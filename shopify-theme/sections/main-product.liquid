@@ -223,7 +223,7 @@
   <div class="sticky-buy__inner page-width">
     <div class="sticky-buy__product">
       {%- if product.featured_media -%}{{ product.featured_media | image_url: width: 120 | image_tag: alt: '' }}{%- endif -%}
-      <div>
+      <div class="sticky-buy__meta">
         <p class="sticky-buy__title">{{ product.title }}</p>
         {% render 'price', product: product, variant: current_variant, show_badge: false %}
       </div>
