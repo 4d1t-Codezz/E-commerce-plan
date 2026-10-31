@@ -2,25 +2,6 @@
   "type": "header",
   "name": "Header group",
   "sections": {
-    "announcement": {
-      "type": "announcement-bar",
-      "blocks": {
-        "a1": {
-          "type": "message",
-          "settings": {
-            "text": "Subscribe monthly and save 10%",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "a1"
-      ],
-      "settings": {
-        "bg": "#1F6FAE",
-        "fg": "#FFFFFF"
-      }
-    },
     "header": {
       "type": "header",
       "settings": {
