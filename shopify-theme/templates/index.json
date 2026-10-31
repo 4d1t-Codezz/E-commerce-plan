@@ -28,12 +28,6 @@
         "chips": "Multivitamin | 90 soft chews | Human-grade ingredients"
       }
     },
-    "strip": {
-      "type": "stillwag-showcase",
-      "settings": {
-        "style": "strip"
-      }
-    },
     "band": {
       "type": "stillwag-showcase",
       "settings": {
@@ -48,7 +42,6 @@
   "order": [
     "hero",
     "jar",
-    "strip",
     "band"
   ]
 }
