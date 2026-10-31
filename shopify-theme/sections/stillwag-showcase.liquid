@@ -1,0 +1,48 @@
+{%- assign p = section.settings.product | default: collections.all.products.first -%}
+<section class="sw-show sw-show--{{ section.settings.style }}">
+  <div class="page-width sw-show__inner">
+    {%- if section.settings.style == 'jar' -%}
+      <div class="sw-show__copy">
+        {%- if section.settings.kicker != blank -%}<p class="sw-kicker">{{ section.settings.kicker }}</p>{%- endif -%}
+        <h2 class="sw-show__heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}<div class="sw-show__text">{{ section.settings.text }}</div>{%- endif -%}
+        {%- if p -%}<a class="button button--large" href="{{ p.url }}">{{ section.settings.button_label }}</a>{%- endif -%}
+      </div>
+      <div class="sw-show__stage">
+        {%- if p.featured_media -%}{{ p.featured_media | image_url: width: 1100 | image_tag: class: 'sw-show__jar', loading: 'lazy', alt: p.title, widths: '500, 800, 1100' }}{%- endif -%}
+        {%- assign chips = section.settings.chips | split: '|' -%}
+        {%- for c in chips -%}<span class="sw-chip sw-chip--{{ forloop.index }}">{{ c | strip }}</span>{%- endfor -%}
+      </div>
+    {%- elsif section.settings.style == 'strip' -%}
+      <div class="sw-strip">
+        {%- for m in p.media offset: 1 limit: 3 -%}
+          <figure class="sw-strip__item">{{ m | image_url: width: 900 | image_tag: loading: 'lazy', alt: '', widths: '400, 700, 900' }}</figure>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="sw-band">
+        <div class="sw-band__glass">
+          {%- if section.settings.kicker != blank -%}<p class="sw-kicker">{{ section.settings.kicker }}</p>{%- endif -%}
+          <h2 class="sw-show__heading">{{ section.settings.heading }}</h2>
+          {%- if section.settings.text != blank -%}<div class="sw-show__text">{{ section.settings.text }}</div>{%- endif -%}
+          {%- if p -%}<a class="button button--large sw-band__btn" href="{{ p.url }}">{{ section.settings.button_label }}</a>{%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Stillwag showcase",
+  "settings": [
+    { "type": "select", "id": "style", "label": "Style", "options": [{ "value": "jar", "label": "Jar with tags" }, { "value": "strip", "label": "Photo strip" }, { "value": "band", "label": "Frosted band" }], "default": "jar" },
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "text", "id": "kicker", "label": "Small text" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Heading" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Shop now" },
+    { "type": "text", "id": "chips", "label": "Tags on the jar (separate with |)" }
+  ],
+  "presets": [{ "name": "Stillwag showcase" }]
+}
+{% endschema %}

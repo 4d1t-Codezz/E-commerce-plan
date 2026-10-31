@@ -7,55 +7,6 @@
         "fallback_text": ""
       }
     },
-    "features": {
-      "type": "features",
-      "blocks": {
-        "f1": {
-          "type": "feature",
-          "settings": {
-            "icon": "truck",
-            "title": "Free shipping",
-            "text": "On every US order."
-          }
-        },
-        "f2": {
-          "type": "feature",
-          "settings": {
-            "icon": "flask",
-            "title": "Lab tested",
-            "text": "Every batch, independently."
-          }
-        },
-        "f3": {
-          "type": "feature",
-          "settings": {
-            "icon": "return",
-            "title": "30-day guarantee",
-            "text": "Love it or your money back."
-          }
-        },
-        "f4": {
-          "type": "feature",
-          "settings": {
-            "icon": "lock",
-            "title": "Secure checkout",
-            "text": "Encrypted payments."
-          }
-        }
-      },
-      "block_order": [
-        "f1",
-        "f2",
-        "f3",
-        "f4"
-      ],
-      "settings": {
-        "eyebrow": "",
-        "heading": "Why Shop With Us",
-        "text": "",
-        "background": "soft"
-      }
-    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
@@ -70,7 +21,6 @@
   },
   "order": [
     "main",
-    "features",
     "newsletter"
   ]
 }

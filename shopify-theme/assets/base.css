@@ -831,3 +831,46 @@ body { -webkit-font-smoothing: antialiased; }
   .hero-card__price { font-size: 13px; opacity: .9; }
   .hero-card__cta { font-size: 13px; font-weight: 600; margin-top: 4px; }
 }
+
+/* ===== Stillwag homepage sections ===== */
+.sw-kicker { font-size: 13px; font-weight: 600; color: var(--sky-7); margin: 0 0 12px; }
+.sw-show { padding: clamp(56px, 8vw, 112px) 0; }
+.sw-show__heading { font-family: var(--font-heading); font-weight: 500; letter-spacing: -0.03em; font-size: clamp(32px, 4vw, 56px); line-height: 1.04; text-wrap: balance; margin: 0; }
+.sw-show__text { margin-top: 16px; font-size: 17px; line-height: 1.6; color: var(--color-muted); max-width: 44ch; }
+.sw-show__copy .button, .sw-band__btn { margin-top: 28px; }
+.sw-show--jar .sw-show__inner { display: grid; gap: 40px; align-items: center; }
+.sw-show__stage { position: relative; border-radius: 28px; aspect-ratio: 1 / 1; overflow: hidden;
+  background: radial-gradient(60% 60% at 70% 75%, rgba(255,45,135,.28), transparent 70%), radial-gradient(80% 80% at 25% 20%, #CFE7FB, transparent 70%), linear-gradient(160deg, #EAF4FD, #B9DCF8); }
+.sw-show__jar { position: absolute; inset: 9% 18% 6%; width: 64%; height: 85%; object-fit: contain; mix-blend-mode: multiply; filter: drop-shadow(0 30px 40px rgba(15,30,46,.25)); }
+.sw-chip { position: absolute; padding: 10px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; color: var(--ink);
+  background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.8); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 8px 24px -14px rgba(15,30,46,.35); }
+.sw-chip--1 { top: 12%; left: 6%; } .sw-chip--2 { top: 46%; right: 5%; } .sw-chip--3 { bottom: 10%; left: 9%; }
+@media (min-width: 990px) { .sw-show--jar .sw-show__inner { grid-template-columns: .9fr 1.1fr; gap: 72px; } }
+.sw-show--strip { padding: 0 0 clamp(56px, 8vw, 112px); }
+.sw-show--strip .page-width { max-width: none; padding: 0 12px; }
+.sw-strip { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.sw-strip__item { margin: 0; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--sky-1); }
+.sw-strip__item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+.sw-strip__item:hover img { transform: scale(1.03); }
+@media (min-width: 750px) { .sw-strip { grid-template-columns: 1.3fr 1fr 1fr; } .sw-strip__item:first-child { aspect-ratio: auto; } }
+.sw-band { border-radius: 28px; padding: clamp(28px, 6vw, 80px); overflow: hidden;
+  background: radial-gradient(50% 70% at 85% 80%, rgba(255,45,135,.45), transparent 70%), radial-gradient(70% 90% at 15% 10%, #8CC6F3, transparent 70%), linear-gradient(135deg, #2C86CC, #164D7A); }
+.sw-band__glass { max-width: 560px; padding: clamp(24px, 4vw, 44px); border-radius: 22px; color: #fff;
+  background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.sw-band__glass .sw-kicker { color: rgba(255,255,255,.85); }
+.sw-band__glass .sw-show__text { color: rgba(255,255,255,.88); }
+.sw-band__btn { background: #fff; color: var(--ink); }
+/* Header: logo left, nav in a pill, icons right */
+@media (min-width: 990px) {
+  .header { position: relative; }
+  .header--sticky { position: sticky; }
+  .header__top { grid-template-columns: auto 1fr auto; height: 76px; }
+  .header__logo { grid-column: 1; grid-row: 1; justify-content: flex-start; }
+  .header__left { grid-column: 3; grid-row: 1; justify-self: end; margin: 0 4px 0 0; }
+  .header__right { grid-column: 3; grid-row: 1; margin-left: 52px; }
+  .header__nav { position: absolute; left: 50%; top: 38px; transform: translate(-50%, -50%); }
+  .header__nav-list { padding: 5px; gap: 2px; border-radius: 999px; background: var(--sky-1); border: 1px solid var(--sky-2); }
+  .header__nav-link { display: block; padding: 8px 18px; border-radius: 999px; background-image: none !important; transition: background-color .3s var(--ease-out); }
+  .header__nav-link:hover { background-color: rgba(255,255,255,.7); }
+  .header__nav-link.is-active { background-color: #fff; box-shadow: 0 2px 8px -4px rgba(15,30,46,.25); }
+}

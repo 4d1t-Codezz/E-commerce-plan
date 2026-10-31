@@ -15,7 +15,7 @@
         "benefits": {
           "type": "benefits",
           "settings": {
-            "items": "90 soft chews per jar, a 30 to 90-day supply depending on size\nMade for dogs 7 and up, chicken flavor\nFree US shipping"
+            "items": "90 soft chews per jar\nMultivitamin made with human-grade ingredients\nSubscribe monthly and save 10%"
           }
         },
         "variants": {
@@ -56,7 +56,7 @@
             "heading": "How to use",
             "icon": "clock",
             "metafield_key": "how_to_use",
-            "content": "<p>Give with food once a day. Under 25 lb: 1 chew. 25 to 75 lb: 2 chews. Over 75 lb: 3 chews.</p>"
+            "content": "<p>Follow the feeding guide on the jar based on your dog's weight.</p>"
           }
         },
         "shipping": {
@@ -75,11 +75,9 @@
         "benefits",
         "variants",
         "buy",
-        "trust",
         "description",
         "ingredients",
-        "howto",
-        "shipping"
+        "howto"
       ],
       "settings": {
         "gallery_badge": ""
@@ -100,16 +98,16 @@
           "type": "point",
           "settings": {
             "icon": "flask",
-            "title": "Made for older dogs",
-            "text": "Daily support for joints, energy, coat and digestion as your dog ages."
+            "title": "Daily health and wellness",
+            "text": "A multivitamin for everyday support, in a chew instead of a pill."
           }
         },
         "p3": {
           "type": "point",
           "settings": {
             "icon": "clock",
-            "title": "Tastes like a treat",
-            "text": "Soft chicken-flavored chews, easy on older teeth. No pill pockets."
+            "title": "Soft chews",
+            "text": "Soft and easy to give, even to older dogs with sensitive teeth."
           }
         }
       },
@@ -132,7 +130,7 @@
           "type": "question",
           "settings": {
             "question": "How long does one jar last?",
-            "answer": "<p>90 chews per jar. That's 90 days for a small dog, 45 for a medium dog and 30 for a large dog.</p>"
+            "answer": "<p>Each jar has 90 soft chews. How long it lasts depends on your dog's size; the feeding guide is on the jar.</p>"
           }
         },
         "q2": {
@@ -152,7 +150,6 @@
       },
       "block_order": [
         "q1",
-        "q2",
         "q3"
       ],
       "settings": {
@@ -173,7 +170,7 @@
     "marquee": {
       "type": "marquee",
       "settings": {
-        "items": "Made For Senior Dogs | Human-Grade Ingredients | One Chew A Day | Chicken Flavor | 30-Day Guarantee",
+        "items": "Daily Multivitamin | 90 Soft Chews | Human-Grade Ingredients | Subscribe And Save 10%",
         "bg": "#CFE7FB",
         "fg": "#0F1E2E"
       }
