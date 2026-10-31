@@ -1136,3 +1136,11 @@ body.sw-vivid { background:
 .jdgm-rev-widg { padding: 0 !important; border: 0 !important; }
 .jdgm-write-rev-link, .jdgm-btn { background: #FF2D87 !important; color: #fff !important; border: 0 !important; border-radius: 999px !important; padding: 10px 22px !important; }
 .sw-reviews__score:has(+ *) {}
+/* review cards */
+.sw-reviews__list { display: grid; gap: 16px; margin-bottom: 24px; }
+@media (min-width: 990px) { .sw-reviews__list { grid-template-columns: repeat(3, 1fr); align-items: start; } }
+.sw-review { margin: 0; background: #F4F9FF; border-radius: 20px; padding: 24px; display: grid; gap: 14px; }
+.sw-review__title { font-weight: 600; color: #0F1E2E; }
+.sw-review__body { margin: 0; color: #34475A; line-height: 1.6; font-size: 15px; }
+.sw-review__meta { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: #4A5B6C; padding-top: 12px; border-top: 1px solid #DCE8F3; }
+.sw-review__meta strong { color: #0F1E2E; font-size: 14px; }

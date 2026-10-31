@@ -223,11 +223,47 @@
       "type": "product-reviews",
       "settings": {
         "heading": "Reviews",
-        "empty_title": "Be the first to review this",
-        "empty_text": "Bought a jar? Tell us how your dog gets on with it.",
+        "source_rating": "4.6",
+        "source_label": "from 11K+ ratings on Amazon",
+        "empty_title": "Bought a jar from us?",
+        "empty_text": "Tell us how your dog gets on with it. Your review will show up here.",
         "button_label": "Write a review",
         "button_link": "/pages/contact"
-      }
+      },
+      "blocks": {
+        "r1": {
+          "type": "quote",
+          "settings": {
+            "title": "",
+            "quote": "My dog loves these! This is the best multivitamin I\u2019ve found and I don\u2019t have to struggle to give to him! Great purchase especially if you have a picky eater! This taste just like a treat!",
+            "author": "Amazon customer",
+            "source": "Review from Amazon"
+          }
+        },
+        "r2": {
+          "type": "quote",
+          "settings": {
+            "title": "",
+            "quote": "These are fantastic. I have been giving my 3 Aussies these for a while now. [\u2026] All 3 of them like them. Puppy and human approved!",
+            "author": "Amazon customer",
+            "source": "Review from Amazon"
+          }
+        },
+        "r3": {
+          "type": "quote",
+          "settings": {
+            "title": "",
+            "quote": "Ordered these for my 13yo pitador (pit & lab mix) Bubba. Did a fair amount of research and review reading before landing on this brand. Being the bacon loving guy he is, he did not like taking them just straight out of the bag, I think it might be whatever they\u2019re coated in. So I had to get creative and found he liked taking them wrapped in a piece of tortilla. We\u2019ve now graduated into being able to crumble them into his wet food and getting them down that way. Quality of the product I would say is great! [\u2026] Overall VERY happy with this product. I still think it\u2019s just a wee bit pricey but it makes him feel better.",
+            "author": "Amazon customer",
+            "source": "Review from Amazon"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ]
     },
     "trust": {
       "type": "stillwag-cards",
