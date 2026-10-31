@@ -1131,3 +1131,8 @@ body.sw-vivid { background:
   .header__right { margin-left: 0 !important; }
 }
 .sw-cards--benefits .sw-card__title::before { content: none !important; display: none !important; }
+/* Judge.me widget on our colours */
+.jdgm-star, .jdgm-preview-badge .jdgm-star { color: #FF2D87 !important; }
+.jdgm-rev-widg { padding: 0 !important; border: 0 !important; }
+.jdgm-write-rev-link, .jdgm-btn { background: #FF2D87 !important; color: #fff !important; border: 0 !important; border-radius: 999px !important; padding: 10px 22px !important; }
+.sw-reviews__score:has(+ *) {}

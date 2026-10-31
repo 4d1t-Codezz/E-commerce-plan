@@ -63,8 +63,7 @@
               {%- assign block_rating = product.metafields.reviews.rating.value.rating | default: block.settings.rating -%}
               {%- assign block_count = product.metafields.reviews.rating_count | default: block.settings.count_text -%}
               <a class="product__rating" href="#reviews" {{ block.shopify_attributes }}>
-                {% render 'stars', rating: block_rating, size: 16 %}
-                <span>{%- if product.metafields.reviews.rating_count.value > 0 -%}{{ block_count }} reviews{%- else -%}{{ block.settings.count_text }}{%- endif -%}</span>
+                <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">{{ product.metafields.judgeme.badge }}</div>
               </a>
 
             {%- when 'title' -%}
