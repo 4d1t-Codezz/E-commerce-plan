@@ -196,7 +196,7 @@
         "asset_image": "",
         "image_right": true,
         "heading": "Made for everyday",
-        "text": "<p>No pills to hide in their food and no powders to measure. Just one soft chew a day.</p>",
+        "text": "<p>No pills to hide in their food and no powders to measure. Just one soft chew a day, and your dog gets a full multivitamin made with human-grade ingredients.</p><p>Each jar has 90 chews. Use the feeding guide on the jar to give the right amount for your dog's weight.</p>",
         "button_label": "Shop now",
         "button_link": "",
         "bg": "#0B4FB8",
@@ -213,8 +213,8 @@
         "w2": {
           "type": "point",
           "settings": {
-            "title": "Human-grade.",
-            "text": "Made with human-grade ingredients."
+            "title": "Human-grade ingredients.",
+            "text": "The same standard as food made for people, printed right on the jar."
           }
         },
         "w3": {
@@ -223,12 +223,28 @@
             "title": "Soft chew.",
             "text": "Easy to give, even to picky older dogs."
           }
+        },
+        "w4": {
+          "type": "point",
+          "settings": {
+            "title": "90 chews per jar.",
+            "text": "Dosed by weight with the guide on the label."
+          }
+        },
+        "w5": {
+          "type": "point",
+          "settings": {
+            "title": "Subscribe and save 10%.",
+            "text": "A new jar every month. Skip or cancel from your account."
+          }
         }
       },
       "block_order": [
         "w1",
         "w2",
-        "w3"
+        "w3",
+        "w4",
+        "w5"
       ]
     }
   },

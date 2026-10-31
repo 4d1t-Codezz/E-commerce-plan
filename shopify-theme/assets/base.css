@@ -1088,3 +1088,5 @@ body.sw-vivid { background:
   .header__left { margin-right: 0 !important; }
   .header__right { margin-left: 120px !important; }
 }
+.wave__list { border-top: 0 !important; padding-top: 0 !important; gap: 14px !important; }
+.wave__list li { display: flex !important; gap: 12px !important; align-items: flex-start; line-height: 1.6; }
