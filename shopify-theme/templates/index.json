@@ -11,10 +11,10 @@
         "text": "<p>One soft chew a day with the vitamins senior dogs run low on. Made with human-grade ingredients.</p>",
         "button_label": "Shop the chews",
         "button_link": "",
-        "points": "Free US shipping | 30-day money-back guarantee | Made for dogs 7+",
+        "points": "",
         "background": "plain",
         "layout": "overlay",
-        "image": "shopify://shop_images/stillwag-hero-glass.png"
+        "image": "shopify://shop_images/stillwag-hero.png"
       }
     },
     "featured": {

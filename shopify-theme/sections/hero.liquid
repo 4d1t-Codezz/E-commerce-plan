@@ -34,6 +34,17 @@
         </ul>
       {%- endif -%}
     </div>
+    {%- assign card_product = product | default: collections.all.products.first -%}
+    {%- if section.settings.layout == 'overlay' and card_product -%}
+      <a class="hero-card" href="{{ card_product.url }}">
+        {%- if card_product.featured_media -%}{{ card_product.featured_media | image_url: width: 240 | image_tag: class: 'hero-card__img', alt: '', loading: 'eager' }}{%- endif -%}
+        <span class="hero-card__body">
+          <span class="hero-card__title">{{ card_product.title }}</span>
+          <span class="hero-card__price">From {{ card_product.price_min | money_without_trailing_zeros }}{% if card_product.selling_plan_groups.size > 0 %} · or save 10% monthly{% endif %}</span>
+          <span class="hero-card__cta">Shop now →</span>
+        </span>
+      </a>
+    {%- endif -%}
   </div>
 </section>
 
