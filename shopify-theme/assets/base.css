@@ -896,3 +896,67 @@ body { background:
 .sw-wordmark { font-family: 'Instrument Sans', var(--font-heading); font-weight: 600; font-size: 26px; letter-spacing: -0.045em; line-height: 1; color: var(--ink); display: inline-flex; align-items: flex-end; }
 .sw-wordmark__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pink); margin: 0 0 4px 2px; }
 .logo__mark, .logo__name { display: none; }
+
+/* ===== Bold version: real visible gradient + saturated colour ===== */
+:root { --sky-5: #2E9BFF; --sky-7: #0B63D6; --pink: #FF2D87; }
+body { background: linear-gradient(165deg, #2E9BFF 0%, #7CC4FF 22%, #EAF5FF 45%, #FFFFFF 58%, #FFE0EE 78%, #FF8FC0 100%) fixed !important; }
+.header { background: rgba(255,255,255,.28) !important; border-bottom: 1px solid rgba(255,255,255,.5) !important; }
+.header__nav-list { background: rgba(255,255,255,.35) !important; border-color: rgba(255,255,255,.6) !important; }
+.announcement { background: linear-gradient(90deg, #0B63D6, #2E9BFF 50%, #FF2D87) !important; color: #fff; }
+/* homepage header floats over the hero like the reference */
+.template-index .shopify-section-group-header-group { position: absolute; left: 0; right: 0; top: 0; z-index: 50; }
+.template-index .header { background: transparent !important; border-bottom: 0 !important; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.template-index .header .sw-wordmark, .template-index .header .icon-button, .template-index .header__nav-link { color: #fff !important; }
+.template-index .header__nav-list { background: rgba(255,255,255,.18) !important; border-color: rgba(255,255,255,.4) !important; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.template-index .header__nav-link.is-active { background-color: rgba(255,255,255,.9); color: var(--ink) !important; }
+.template-index .hero--overlay .hero__img { aspect-ratio: auto; height: min(100vh, 900px); min-height: 640px; width: 100%; object-fit: cover; }
+.hero--overlay .hero__media::after { background: linear-gradient(0deg, rgba(8,40,110,.45), rgba(8,40,110,0) 55%) !important; }
+.hero--overlay .hero__heading { font-weight: 400 !important; }
+@media (min-width: 990px) {
+  .hero-card { top: 120px; bottom: auto; }
+  .hero--overlay .hero__content { padding-bottom: 72px; }
+}
+/* saturated stage + band */
+.sw-show__stage { background: radial-gradient(55% 55% at 72% 78%, rgba(255,45,135,.75), transparent 70%), radial-gradient(45% 45% at 85% 20%, rgba(255,140,80,.55), transparent 70%), linear-gradient(150deg, #2E9BFF, #0B63D6) !important; }
+.sw-show__jar { mix-blend-mode: normal !important; filter: drop-shadow(0 40px 50px rgba(0,20,70,.45)); }
+.sw-band { background: radial-gradient(50% 80% at 85% 85%, rgba(255,45,135,.85), transparent 70%), radial-gradient(40% 60% at 60% 10%, rgba(255,140,80,.5), transparent 70%), linear-gradient(135deg, #2E9BFF, #0B4FB8) !important; }
+.sw-chip { background: rgba(255,255,255,.22) !important; color: #fff !important; border-color: rgba(255,255,255,.55) !important; }
+.sw-kicker { color: var(--pink); }
+.footer { background: radial-gradient(50% 90% at 90% 100%, rgba(255,45,135,.7), transparent 70%), linear-gradient(160deg, #2E9BFF, #0B4FB8) !important; }
+.button:not(.hero__content .button):not(.sw-band__btn) { background: linear-gradient(90deg, #FF2D87, #FF5FA2); }
+
+/* ===== Reference look sitewide: vivid blurred photo behind everything, fluted glass, frosted panels ===== */
+body.sw-vivid::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 2px, rgba(255,255,255,0) 2px 16px, rgba(0,0,0,.05) 16px 18px, rgba(255,255,255,0) 18px 22px); }
+body.sw-vivid { color: #fff; }
+/* header everywhere: transparent glass, white */
+.header { background: rgba(255,255,255,.12) !important; border-bottom: 1px solid rgba(255,255,255,.25) !important; }
+.header .sw-wordmark, .header .icon-button, .header__nav-link { color: #fff !important; }
+.header__nav-list { background: rgba(255,255,255,.16) !important; border-color: rgba(255,255,255,.4) !important; }
+.header__nav-link.is-active { background-color: rgba(255,255,255,.92) !important; color: #0F1E2E !important; }
+.announcement { background: rgba(10,40,110,.35) !important; backdrop-filter: blur(12px); }
+/* homepage hero: image already is the background, so let it breathe */
+.template-index .hero--overlay .hero__media::after { background: linear-gradient(0deg, rgba(5,30,90,.35), rgba(5,30,90,0) 50%) !important; }
+.hero--overlay .hero__points { position: absolute; left: 0; right: 0; bottom: 0; display: none; }
+@media (min-width: 990px) {
+  .hero--overlay .hero__content { padding-bottom: 140px; }
+  .hero--overlay .hero__points { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 0; padding: 0 max(32px, calc((100vw - 1200px) / 2)) 28px; }
+  .hero--overlay .hero__points li { background: none !important; border: 0 !important; border-top: 1px solid rgba(255,255,255,.35) !important; border-radius: 0 !important; backdrop-filter: none !important; padding: 14px 16px 0 0 !important; font-size: 14px; }
+  .hero--overlay .hero__content { position: absolute; inset: 0 auto 0 0; }
+}
+.hero__content { position: static; }
+/* homepage sections sit on the vivid backdrop */
+.sw-show__heading, .sw-show__copy { color: #fff; }
+.sw-show__text { color: rgba(255,255,255,.88) !important; }
+.sw-kicker { color: #FFD0E4 !important; }
+.sw-show__stage { background: rgba(255,255,255,.14) !important; border: 1px solid rgba(255,255,255,.4); backdrop-filter: blur(24px) saturate(1.3); -webkit-backdrop-filter: blur(24px) saturate(1.3); }
+.sw-band { background: rgba(255,255,255,.10) !important; border: 1px solid rgba(255,255,255,.3); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); }
+.sw-strip__item { border: 1px solid rgba(255,255,255,.35); }
+/* inner pages: content on a frosted white panel so it stays readable */
+.product, .main-collection, .main-page, .cart, .main-cart, .contact, .main-search, .section.highlights, .section.faq, .section.related { position: relative; }
+.product.page-width, .template-collection main > .shopify-section:first-child .page-width, .template-cart main .page-width, .template-page main .page-width, .template-search main .page-width, .section.highlights .page-width, .section.faq .page-width, .section.related .page-width {
+  background: rgba(255,255,255,.86); color: #0F1E2E; border-radius: 28px; padding: clamp(20px, 3vw, 44px) !important; margin-top: 28px; margin-bottom: 28px;
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 30px 80px -40px rgba(5,30,90,.6); }
+.footer { background: rgba(5,30,90,.35) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,.25) !important; }
+.marquee { background: rgba(255,255,255,.14) !important; color: #fff !important; border-color: rgba(255,255,255,.3) !important; }
+.button:not(.hero__content .button):not(.sw-band__btn) { background: #FF2D87; }

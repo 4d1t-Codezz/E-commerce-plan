@@ -30,7 +30,7 @@
     {{ content_for_header }}
   </head>
 
-  <body class="template-{{ template.name }}{% unless settings.enable_purchasing %} store-preorder{% endunless %}">
+  <body class="sw-vivid template-{{ template.name }}{% unless settings.enable_purchasing %} store-preorder{% endunless %}">
     <a class="skip-link" href="#MainContent">Skip to content</a>
 
     {% sections 'header-group' %}
