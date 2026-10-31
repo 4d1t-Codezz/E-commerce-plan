@@ -1144,3 +1144,12 @@ body.sw-vivid { background:
 .sw-review__body { margin: 0; color: #34475A; line-height: 1.6; font-size: 15px; }
 .sw-review__meta { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: #4A5B6C; padding-top: 12px; border-top: 1px solid #DCE8F3; }
 .sw-review__meta strong { color: #0F1E2E; font-size: 14px; }
+/* review graphic cards */
+@media (min-width: 990px) { .sw-reviews__list { grid-template-columns: repeat(2, 1fr) !important; } }
+.sw-review { position: relative; overflow: hidden; padding: 32px 28px 24px !important; background: linear-gradient(150deg, #FFFFFF 0%, #EEF6FF 55%, #FFEAF3 100%) !important; border: 1px solid #DCE8F3; box-shadow: 0 24px 50px -34px rgba(0,20,80,.45); }
+.sw-review__mark { position: absolute; top: -18px; right: 18px; font-family: Georgia, serif; font-size: 140px; line-height: 1; color: #FF2D87; opacity: .18; }
+.sw-review .stars__fill { color: #FFB800; }
+.sw-review__body { font-size: 17px !important; color: #0F1E2E !important; }
+.sw-review__meta { flex-direction: row !important; align-items: center; gap: 12px !important; }
+.sw-review__meta > span:last-child { display: flex; flex-direction: column; }
+.sw-review__avatar { width: 40px; height: 40px; border-radius: 50%; flex: none; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; background: linear-gradient(135deg, #2E9BFF, #FF2D87); }
