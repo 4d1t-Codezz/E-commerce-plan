@@ -8,7 +8,7 @@
     {%- endif -%}
     <ul class="sw-cards__grid" role="list">
       {%- for block in section.blocks -%}
-        <li class="sw-card reveal" {{ block.shopify_attributes }}>
+        <li class="sw-card" {{ block.shopify_attributes }}>
           {%- if block.settings.icon != 'none' -%}<span class="sw-card__icon">{% render 'icon', name: block.settings.icon, size: 34 %}</span>{%- endif -%}
           <p class="sw-card__title">{{ block.settings.title }}</p>
           {%- if block.settings.text != blank -%}<p class="sw-card__text">{{ block.settings.text }}</p>{%- endif -%}

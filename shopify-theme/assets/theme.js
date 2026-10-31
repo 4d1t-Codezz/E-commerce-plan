@@ -125,7 +125,7 @@
 
   /* Reveal sections on scroll */
   if ('IntersectionObserver' in window) {
-    var targets = document.querySelectorAll('.section .section-head, .card, .feature, .step, .review, .iwt__media, .iwt__content, .compare__table, .highlights__media');
+    var targets = document.querySelectorAll('.section .section-head, .card, .feature, .step, .review, .iwt__media, .iwt__content, .compare__table, .highlights__media, .sw-card');
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }

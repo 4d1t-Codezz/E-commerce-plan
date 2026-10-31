@@ -1082,3 +1082,9 @@ body.sw-vivid { background:
 .template-index .sw-show { padding-block: clamp(40px, 6vw, 80px) !important; }
 /* homepage FAQ on a white panel */
 .template-index .section.faq .page-width { background: #fff; color: #0F1E2E; border-radius: 28px; padding: clamp(24px, 4vw, 56px) !important; max-width: 900px; margin: 40px auto; }
+/* header: search pill has a fixed width so Account/Cart sit after it, not on top of it */
+@media (min-width: 990px) {
+  .header__search { width: 108px !important; justify-content: center; }
+  .header__left { margin-right: 0 !important; }
+  .header__right { margin-left: 120px !important; }
+}
