@@ -233,7 +233,7 @@
       "type": "stillwag-cards",
       "settings": {
         "style": "trust",
-        "heading": "",
+        "heading": "Why shop with us",
         "text": ""
       },
       "blocks": {
@@ -280,10 +280,10 @@
   },
   "order": [
     "main",
-    "trust",
     "marquee",
     "highlights",
     "reviews",
+    "trust",
     "faq"
   ]
 }

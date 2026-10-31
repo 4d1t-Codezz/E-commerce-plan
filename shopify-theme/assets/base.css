@@ -1122,3 +1122,4 @@ body.sw-vivid { background:
 .sw-cards--benefits .sw-card__title::before { content: ""; display: block; width: 28px; height: 3px; border-radius: 3px; background: #FF2D87; margin-bottom: 12px; }
 .sw-cards--benefits .sw-card__text { color: rgba(255,255,255,.85); font-size: 15px; }
 @media (max-width: 600px) { .sw-cards--benefits .sw-cards__grid { grid-template-columns: 1fr !important; } }
+.template-product .sw-cards { padding: 48px 0 !important; }
