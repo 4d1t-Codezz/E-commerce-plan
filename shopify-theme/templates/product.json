@@ -215,8 +215,8 @@
       "type": "marquee",
       "settings": {
         "items": "Daily Multivitamin | 90 Soft Chews | Human-Grade Ingredients | Subscribe And Save 10%",
-        "bg": "#CFE7FB",
-        "fg": "#0F1E2E"
+        "bg": "#FF2D87",
+        "fg": "#FFFFFF"
       }
     },
     "reviews": {

@@ -1099,3 +1099,4 @@ body.sw-vivid { background:
 .sw-sub .sw-show__heading { color: #0F1E2E !important; font-size: clamp(36px, 4.4vw, 64px); line-height: 1; letter-spacing: -0.035em; margin: 0; }
 .sw-sub .sw-show__text, .sw-sub .sw-show__text p { color: #34475A !important; font-size: 17px; line-height: 1.6; max-width: 44ch; }
 .sw-sub__btn { background: #FF2D87 !important; color: #fff !important; border: 0 !important; border-radius: 999px !important; margin-top: 8px; }
+.template-product .sw-cards { padding: 8px 0 40px; }
