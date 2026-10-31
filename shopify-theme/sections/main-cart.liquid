@@ -9,9 +9,16 @@
             <div class="cart__meta">
               <a href="{{ item.url }}" class="cart__title">{{ item.product.title }}</a>
               {%- unless item.product.has_only_default_variant -%}<p class="cart__variant">{{ item.variant.title }}</p>{%- endunless -%}
-              <a href="{{ item.url_to_remove }}" class="cart__remove">Remove</a>
+              {%- if item.selling_plan_allocation -%}<p class="cart__variant">{{ item.selling_plan_allocation.selling_plan.name }}</p>{%- endif -%}
             </div>
-            <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity" class="cart__qty">
+            <div class="cart__qty-wrap">
+              <div class="qty-stepper">
+                <button type="button" class="qty-stepper__btn" data-qty-step="-1" aria-label="Decrease quantity">&minus;</button>
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity" class="cart__qty" data-qty-input>
+                <button type="button" class="qty-stepper__btn" data-qty-step="1" aria-label="Increase quantity">+</button>
+              </div>
+              <a href="{{ item.url_to_remove }}" class="cart__bin" aria-label="Remove {{ item.product.title | escape }}">{% render 'icon', name: 'trash', size: 20 %}</a>
+            </div>
             <span class="cart__price">{{ item.final_line_price | money }}</span>
           </li>
         {%- endfor -%}
@@ -19,7 +26,7 @@
       <div class="cart__footer">
         <p class="cart__total"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></p>
         <p class="cart__note">Taxes and shipping calculated at checkout.</p>
-        <button type="submit" name="update" class="button button--outline">Update</button>
+        <noscript><button type="submit" name="update" class="button button--outline">Update</button></noscript>
         {%- if settings.enable_purchasing -%}
           <button type="submit" name="checkout" class="button button--large">Check out</button>
         {%- else -%}
@@ -35,4 +42,17 @@
     </div>
   {%- endif -%}
 </section>
+<script>
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-qty-step]');
+    if (!btn) return;
+    var input = btn.parentNode.querySelector('[data-qty-input]');
+    var next = Math.max(0, (parseInt(input.value, 10) || 0) + parseInt(btn.dataset.qtyStep, 10));
+    input.value = next;
+    btn.closest('form').submit();
+  });
+  document.addEventListener('change', function (e) {
+    if (e.target.matches('[data-qty-input]')) e.target.closest('form').submit();
+  });
+</script>
 {% schema %}{ "name": "Cart" }{% endschema %}
