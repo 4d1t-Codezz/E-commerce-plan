@@ -20,12 +20,13 @@
         {%- endfor -%}
       </div>
     {%- else -%}
-      <div class="sw-band">
-        <div class="sw-band__glass">
+      <div class="sw-sub">
+        {%- if section.settings.image != blank -%}<div class="sw-sub__media">{{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'sw-sub__img', alt: section.settings.image.alt }}</div>{%- endif -%}
+        <div class="sw-sub__body">
           {%- if section.settings.kicker != blank -%}<p class="sw-kicker">{{ section.settings.kicker }}</p>{%- endif -%}
           <h2 class="sw-show__heading">{{ section.settings.heading }}</h2>
           {%- if section.settings.text != blank -%}<div class="sw-show__text">{{ section.settings.text }}</div>{%- endif -%}
-          {%- if p -%}<a class="button button--large sw-band__btn" href="{{ p.url }}">{{ section.settings.button_label }}</a>{%- endif -%}
+          {%- if p -%}<a class="button button--large sw-sub__btn" href="{{ p.url }}">{{ section.settings.button_label }}</a>{%- endif -%}
         </div>
       </div>
     {%- endif -%}

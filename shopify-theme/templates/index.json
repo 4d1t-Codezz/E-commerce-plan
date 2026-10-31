@@ -33,10 +33,11 @@
       "type": "stillwag-showcase",
       "settings": {
         "style": "band",
-        "kicker": "",
+        "kicker": "Monthly subscription",
         "heading": "Subscribe and save 10%",
-        "text": "<p>A new jar every month. Cancel anytime.</p>",
-        "button_label": "Subscribe"
+        "text": "<p>Get a new jar delivered every month and pay 10% less on every one. Skip a month or cancel from your account whenever you want.</p>",
+        "button_label": "Subscribe",
+        "image": "shopify://shop_images/stillwag-jar-blue.png"
       }
     },
     "trust": {
