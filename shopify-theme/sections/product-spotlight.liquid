@@ -82,7 +82,7 @@
                 {%- for line in lines -%}
                   {%- assign l = line | strip -%}
                   {%- if l != blank -%}
-                    <li><span class="product__benefit-icon">{% render 'icon', name: 'check', size: 14, stroke: 2.4 %}</span>{{ l }}</li>
+                    <li>{{ l }}</li>
                   {%- endif -%}
                 {%- endfor -%}
               </ul>
@@ -131,6 +131,24 @@
                 {%- if can_buy -%}
                   {%- form 'product', product, id: form_id, class: 'product__form', novalidate: 'novalidate' -%}
                     <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+                    {%- if product.selling_plan_groups.size > 0 -%}
+                      <fieldset class="purchase-type">
+                        <legend class="visually-hidden">Purchase type</legend>
+                        <label class="purchase-type__opt">
+                          <input type="radio" name="selling_plan" value=""{% unless product.requires_selling_plan %} checked{% endunless %}>
+                          <span class="purchase-type__name">One-time purchase</span>
+                        </label>
+                        {%- for group in product.selling_plan_groups -%}
+                          {%- for plan in group.selling_plans -%}
+                            <label class="purchase-type__opt">
+                              <input type="radio" name="selling_plan" value="{{ plan.id }}"{% if product.requires_selling_plan and forloop.first %} checked{% endif %}>
+                              <span class="purchase-type__name">Subscribe monthly{% if plan.price_adjustments.first.value_type == 'percentage' %}, save {{ plan.price_adjustments.first.value }}%{% endif %}</span>
+                              <span class="purchase-type__note">Ships every month. Skip or cancel anytime.</span>
+                            </label>
+                          {%- endfor -%}
+                        {%- endfor -%}
+                      </fieldset>
+                    {%- endif -%}
                     <div class="product__buy-row">
                       <div class="qty">
                         <button type="button" aria-label="Decrease quantity" data-qty="-1">{% render 'icon', name: 'minus', size: 16 %}</button>
@@ -187,7 +205,7 @@
               -%}
               {%- if body != blank -%}
                 <details class="accordion" {{ block.shopify_attributes }}>
-                  <summary><span>{% render 'icon', name: block.settings.icon, size: 18 %} {{ block.settings.heading }}</span><span class="accordion__icon">{% render 'icon', name: 'plus', size: 18 %}</span></summary>
+                  <summary><span>{{ block.settings.heading }}</span><span class="accordion__icon">{% render 'icon', name: 'plus', size: 18 %}</span></summary>
                   <div class="accordion__body rte">{{ body }}</div>
                 </details>
               {%- endif -%}

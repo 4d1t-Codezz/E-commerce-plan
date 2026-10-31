@@ -83,7 +83,8 @@
         "options": [
           { "value": "archivo", "label": "Archivo (bold grotesk)" },
           { "value": "fraunces", "label": "Fraunces (soft serif)" },
-          { "value": "poppins", "label": "Poppins (geometric)" }
+          { "value": "poppins", "label": "Poppins (geometric)" },
+          { "value": "instrument", "label": "Instrument Sans (clean grotesk)" }
         ],
         "default": "poppins"
       },

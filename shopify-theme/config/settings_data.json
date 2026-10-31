@@ -2,7 +2,7 @@
   "current": {
     "enable_purchasing": true,
     "color_bg": "#FFFFFF",
-    "color_bg_alt": "#EEF6FD",
+    "color_bg_alt": "#F1F7FD",
     "color_text": "#0F1E2E",
     "color_muted": "#4A5B6C",
     "color_accent": "#FF2D87",
@@ -10,7 +10,7 @@
     "color_highlight": "#FF2D87",
     "color_star": "#1F6FAE",
     "color_border": "#DCE8F3",
-    "heading_font": "poppins",
+    "heading_font": "instrument",
     "heading_scale": 100,
     "card_show_rating": false,
     "card_show_second_image": true,

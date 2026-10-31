@@ -7,14 +7,14 @@
         "image_right": false,
         "media_badge": "",
         "eyebrow": "",
-        "heading": "Keep Your Old Dog Feeling Young",
-        "text": "<p>A daily multivitamin soft chew for senior dogs. Human-grade ingredients for joints, energy, coat and digestion, in a chicken flavor they actually want.</p>",
-        "button_label": "Shop Now",
+        "heading": "Your old dog, back to their old self.",
+        "text": "<p>One soft chew a day with the vitamins senior dogs run low on. Made with human-grade ingredients.</p>",
+        "button_label": "Shop the chews",
         "button_link": "",
-        "points": "",
+        "points": "Free US shipping | 30-day money-back guarantee | Made for dogs 7+",
         "background": "plain",
         "layout": "overlay",
-        "image": "shopify://shop_images/stillwag-hero.png"
+        "image": "shopify://shop_images/stillwag-hero-glass.png"
       }
     },
     "featured": {
@@ -146,7 +146,7 @@
       ],
       "settings": {
         "eyebrow": "",
-        "heading": "Why Dog Owners Shop With Us",
+        "heading": "The boring but important stuff",
         "text": "",
         "background": "plain"
       }
@@ -249,7 +249,7 @@
       "settings": {
         "asset_image": "story.png",
         "image_right": true,
-        "heading": "Made For Dogs Who've Earned It",
+        "heading": "Made for the years after the zoomies.",
         "text": "<p>Older dogs slow down. Stiff mornings, a duller coat, less energy on walks. One chew a day gives them the daily nutrients they need to keep up with you.</p>",
         "button_label": "Shop Now",
         "bg": "#1F6FAE",

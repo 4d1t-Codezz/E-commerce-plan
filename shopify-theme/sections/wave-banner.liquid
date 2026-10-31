@@ -15,7 +15,7 @@
         {%- if section.blocks.size > 0 -%}
           <ul class="wave__list">
             {%- for block in section.blocks -%}
-              <li {{ block.shopify_attributes }}>{% render 'icon', name: 'check', size: 18, stroke: 2.2 %}<span><strong>{{ block.settings.title }}</strong> {{ block.settings.text }}</span></li>
+              <li {{ block.shopify_attributes }}><span><strong>{{ block.settings.title }}</strong> {{ block.settings.text }}</span></li>
             {%- endfor -%}
           </ul>
         {%- endif -%}

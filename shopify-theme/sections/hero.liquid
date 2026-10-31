@@ -30,7 +30,7 @@
       {%- if section.settings.points != blank -%}
         <ul class="hero__points">
           {%- assign points = section.settings.points | split: '|' -%}
-          {%- for p in points -%}<li>{% render 'icon', name: 'check', size: 16, stroke: 2 %}{{ p | strip }}</li>{%- endfor -%}
+          {%- for p in points -%}<li>{{ p | strip }}</li>{%- endfor -%}
         </ul>
       {%- endif -%}
     </div>
