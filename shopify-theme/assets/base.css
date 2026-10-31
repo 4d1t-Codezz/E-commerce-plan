@@ -1123,3 +1123,10 @@ body.sw-vivid { background:
 .sw-cards--benefits .sw-card__text { color: rgba(255,255,255,.85); font-size: 15px; }
 @media (max-width: 600px) { .sw-cards--benefits .sw-cards__grid { grid-template-columns: 1fr !important; } }
 .template-product .sw-cards { padding: 48px 0 !important; }
+/* header: search lives inside the right group on desktop, so nothing stacks */
+.header__search--desk { display: none !important; }
+@media (min-width: 990px) {
+  .header__left .header__search { display: none !important; }
+  .header__search--desk { display: inline-flex !important; width: auto !important; }
+  .header__right { margin-left: 0 !important; }
+}

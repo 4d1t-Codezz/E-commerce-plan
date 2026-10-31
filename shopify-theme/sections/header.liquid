@@ -23,6 +23,7 @@
     </a>
 
     <div class="header__right">
+      <button type="button" class="icon-button header__search header__search--desk" aria-label="Search" data-search-open>{% render 'icon', name: 'search', size: 22 %}<span class="header__label">Search</span></button>
       {%- if shop.customer_accounts_enabled -%}
         <a href="{{ routes.account_url }}" class="icon-button header__account" aria-label="Account">{% render 'icon', name: 'account', size: 22 %}<span class="header__label">Account</span></a>
       {%- endif -%}
