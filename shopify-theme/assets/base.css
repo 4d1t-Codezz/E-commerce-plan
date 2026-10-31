@@ -960,3 +960,11 @@ body.sw-vivid { color: #fff; }
 .footer { background: rgba(5,30,90,.35) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,.25) !important; }
 .marquee { background: rgba(255,255,255,.14) !important; color: #fff !important; border-color: rgba(255,255,255,.3) !important; }
 .button:not(.hero__content .button):not(.sw-band__btn) { background: #FF2D87; }
+/* hero type: wide and airy, two lines max like the reference */
+@media (min-width: 990px) {
+  .hero--overlay .hero__content { width: min(78%, 1100px) !important; }
+  .hero--overlay .hero__heading { font-size: clamp(52px, 6vw, 96px) !important; max-width: 13ch !important; line-height: .98 !important; letter-spacing: -0.04em !important; }
+  .hero--overlay .hero__text { max-width: 52ch !important; font-size: 18px !important; margin-top: 22px !important; }
+  .hero--overlay .hero__content .button { margin-top: 30px !important; }
+}
+.hero--overlay .hero__content .button { border: 0 !important; padding-inline: 30px; }

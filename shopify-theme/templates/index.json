@@ -7,9 +7,9 @@
         "image_right": false,
         "media_badge": "",
         "eyebrow": "",
-        "heading": "Your old dog, back to their old self.",
-        "text": "<p>One soft chew a day with the vitamins senior dogs run low on. Made with human-grade ingredients.</p>",
-        "button_label": "Shop the chews",
+        "heading": "Daily vitamins for older dogs",
+        "text": "<p>A multivitamin soft chew made with human-grade ingredients. 90 chews in every jar.</p>",
+        "button_label": "Shop now",
         "button_link": "",
         "points": "Daily multivitamin | 90 soft chews | Human-grade ingredients | Subscribe and save 10%",
         "background": "plain",
@@ -21,10 +21,10 @@
       "type": "stillwag-showcase",
       "settings": {
         "style": "jar",
-        "kicker": "What's in the jar",
-        "heading": "A daily multivitamin, in a soft chew.",
-        "text": "<p>90 soft chews made with human-grade ingredients for everyday dog health and wellness.</p>",
-        "button_label": "See the jar",
+        "kicker": "",
+        "heading": "Dog is Human Multivitamin",
+        "text": "<p>Human-grade ingredients for daily dog health and wellness. That's what it says on the jar, and that's what's inside.</p>",
+        "button_label": "Shop now",
         "chips": "Multivitamin | 90 soft chews | Human-grade ingredients"
       }
     },
@@ -38,10 +38,10 @@
       "type": "stillwag-showcase",
       "settings": {
         "style": "band",
-        "kicker": "Subscribe and save",
-        "heading": "10% off every month, delivered.",
-        "text": "<p>Pick subscribe on the product page and a fresh jar shows up every month. Skip or cancel from your account.</p>",
-        "button_label": "Start a subscription"
+        "kicker": "",
+        "heading": "Subscribe and save 10%",
+        "text": "<p>Get a jar every month for 10% less. Skip or cancel anytime from your account.</p>",
+        "button_label": "Subscribe"
       }
     }
   },
