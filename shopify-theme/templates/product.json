@@ -71,8 +71,8 @@
         "rating": {
           "type": "rating",
           "settings": {
-            "rating": "0",
-            "count_text": "No reviews yet"
+            "rating": "4.6",
+            "count_text": "4.6 (11K+ ratings on Amazon)"
           }
         }
       },
