@@ -20,8 +20,12 @@
         {%- for block in section.blocks -%}{% render block %}{%- endfor -%}
       </div>
     {%- else -%}
-      <div class="sw-reviews__app">
-        <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}">{{ product.metafields.judgeme.widget }}</div>
+      <div class="sw-reviews__empty">
+        <p class="sw-reviews__empty-title">{{ section.settings.empty_title }}</p>
+        <p>{{ section.settings.empty_text }}</p>
+        {%- if section.settings.button_label != blank -%}
+          <a class="button button--secondary" href="{{ section.settings.button_link | default: '/pages/contact' }}">{{ section.settings.button_label }}</a>
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>
