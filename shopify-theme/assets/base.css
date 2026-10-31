@@ -1153,3 +1153,4 @@ body.sw-vivid { background:
 .sw-review__meta { flex-direction: row !important; align-items: center; gap: 12px !important; }
 .sw-review__meta > span:last-child { display: flex; flex-direction: column; }
 .sw-review__avatar { width: 40px; height: 40px; border-radius: 50%; flex: none; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; background: linear-gradient(135deg, #2E9BFF, #FF2D87); }
+.stars__fill, .stars__fill svg { color: #FFB800 !important; fill: #FFB800 !important; }
