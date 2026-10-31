@@ -1,1 +1,11 @@
-{ "sections": { "main": { "type": "main-contact", "settings": {} }, "faq": { "type": "faq", "blocks": { "q1": { "type": "question", "settings": { "question": "Where is my order?", "answer": "<p>You will get a tracking link by email as soon as your order ships. Can't find it? Check your spam folder or send us a message.</p>" } }, "q2": { "type": "question", "settings": { "question": "How do refunds work?", "answer": "<p>Email us within 30 days of delivery and we will refund your order to the original payment method.</p>" } } }, "block_order": ["q1", "q2"], "settings": { "eyebrow": "", "heading": "Quick answers", "text": "", "open_first": false, "background": "soft" } } }, "order": ["main", "faq"] }
+{
+  "sections": {
+    "main": {
+      "type": "main-contact",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -30,9 +30,9 @@
         "trust": {
           "type": "trust",
           "settings": {
-            "t1": "Free US shipping",
-            "t2": "30-day guarantee",
-            "t3": "Secure checkout"
+            "t1": "Secure checkout",
+            "t2": "Subscribe and save 10%",
+            "t3": "Encrypted payments"
           }
         },
         "description": {
@@ -65,7 +65,7 @@
             "heading": "Shipping & returns",
             "icon": "truck",
             "metafield_key": "",
-            "content": "<p>Free shipping on all US orders. Orders are processed within 1\u20132 business days and tracking is emailed when your order ships.</p><p>Covered by our 30-day money-back guarantee.</p>"
+            "content": "<p>Shipping is calculated at checkout. Tracking is emailed when your order ships.</p>"
           }
         }
       },

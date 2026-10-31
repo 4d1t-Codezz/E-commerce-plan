@@ -23,7 +23,7 @@
           "type": "newsletter",
           "settings": {
             "title": "Newsletter",
-            "text": "Get launch news and 15% off your first order."
+            "text": "Get news and offers from Stillwag."
           }
         }
       },
@@ -33,7 +33,8 @@
         "news"
       ],
       "settings": {
-        "show_payment": true
+        "show_payment": true,
+        "about": "<p>Daily multivitamin soft chews for dogs.</p>"
       }
     }
   },

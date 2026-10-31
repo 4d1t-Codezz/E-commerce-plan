@@ -6,21 +6,9 @@
         "all_title": "All Products",
         "fallback_text": ""
       }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "eyebrow": "",
-        "heading": "Join Our Email List",
-        "text": "Be the first to know when we launch, and get 15% off your first order.",
-        "button_label": "Subscribe",
-        "bg": "#F4F4F2",
-        "fg": "#121212"
-      }
     }
   },
   "order": [
-    "main",
-    "newsletter"
+    "main"
   ]
 }

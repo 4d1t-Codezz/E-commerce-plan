@@ -1,7 +1,7 @@
 <section class="page page-width page-width--narrow">
   <p class="eyebrow">We're here to help</p>
   <h1 class="h1">{{ page.title | default: 'Contact' }}</h1>
-  {%- if page.content != blank -%}<div class="rte">{{ page.content }}</div>{%- else -%}<p class="section-sub">Questions about an order or a product? Send us a message and we'll reply within one business day.</p>{%- endif -%}
+  {%- if page.content != blank -%}<div class="rte">{{ page.content }}</div>{%- else -%}<p class="section-sub">Questions about an order or a product? Send us a message and we'll reply within 3 days.</p>{%- endif -%}
   {%- form 'contact', class: 'contact-form' -%}
     {%- if form.posted_successfully? -%}
       <p class="form-success">{% render 'icon', name: 'check', size: 18, stroke: 2 %} Thanks! We'll be in touch shortly.</p>
