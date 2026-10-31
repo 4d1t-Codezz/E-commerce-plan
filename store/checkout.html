@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout · Stillwag</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="./"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#4aa8ec"/><path d="M9 19c2 3 5 4 7 4s5-1 7-4" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>Stillwag</a>
+    <a href="./" style="font-size:14px;color:var(--ink-2)">← Back to store</a>
+  </div>
+</header>
+
+<main id="co-main">
+  <form class="wrap co" id="co-form" novalidate>
+    <div class="rise">
+      <h2>Checkout</h2>
+      <fieldset><legend>Contact</legend>
+        <div class="f"><input type="email" name="email" placeholder="Email" required autocomplete="email">
+        <label style="font-size:14px;display:flex;gap:8px;align-items:center"><input type="checkbox" name="news" style="width:16px;height:16px"> Email me dosing tips and offers</label></div>
+      </fieldset>
+      <fieldset><legend>Shipping address</legend>
+        <div class="f">
+          <div class="f2"><input name="first" placeholder="First name" required autocomplete="given-name"><input name="last" placeholder="Last name" required autocomplete="family-name"></div>
+          <input name="address" placeholder="Address" required autocomplete="address-line1">
+          <input name="apt" placeholder="Apartment, suite (optional)" autocomplete="address-line2">
+          <div class="f3"><input name="city" placeholder="City" required autocomplete="address-level2">
+            <select name="state" required autocomplete="address-level1"><option value="">State</option></select>
+            <input name="zip" placeholder="ZIP" required pattern="\d{5}(-\d{4})?" inputmode="numeric" autocomplete="postal-code"></div>
+          <input name="phone" type="tel" placeholder="Phone (for delivery updates, optional)" autocomplete="tel">
+        </div>
+      </fieldset>
+      <fieldset><legend>Payment</legend>
+        <div class="notice"><b>Test mode.</b> Payments aren't connected yet, so no card is taken. Once the Shopify store details are added in <code>config.js</code>, Checkout goes straight to Shopify's secure checkout instead of this page.</div>
+      </fieldset>
+      <button class="btn btn-pink btn-block" style="margin-top:22px" id="place">Place test order</button>
+    </div>
+
+    <aside class="summary rise" data-d="100">
+      <h3 style="font-size:18px;margin-bottom:6px">Order summary</h3>
+      <div id="sum-lines"></div>
+      <div class="sum" style="margin-top:14px">
+        <div class="row"><span>Subtotal</span><span id="s-sub"></span></div>
+        <div class="row"><span>Shipping</span><span id="s-ship"></span></div>
+        <div class="row total"><span>Total</span><span id="s-total"></span></div>
+      </div>
+    </aside>
+  </form>
+</main>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script>
+(function(){
+  const S = STORE, $ = s => document.querySelector(s);
+  const states = "AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY".split(" ");
+  $('select[name=state]').insertAdjacentHTML('beforeend', states.map(s => `<option>${s}</option>`).join(''));
+
+  const lines = Cart.lines;
+  if (!lines.length) { $('#co-main').innerHTML = '<div class="done-box"><h2>Your cart is empty</h2><p class="sub" style="margin:12px auto 24px">Add some chews first.</p><a class="btn btn-pink" href="./#shop">Shop joint chews</a></div>'; return; }
+
+  const sub = Cart.subtotal(), ship = sub >= S.freeShippingAt ? 0 : 5.95;
+  $('#sum-lines').innerHTML = lines.map(l => { const p = S.products[l.id]; return `<div class="line"><img src="${p.img}" alt=""><div><b>${p.name}</b><small>${p.sub}${l.sub ? ' · Monthly, 15% off' : ''} · Qty ${l.qty}</small></div><b>${Cart.money(Cart.unitPrice(l) * l.qty)}</b></div>`; }).join('');
+  $('#s-sub').textContent = Cart.money(sub);
+  $('#s-ship').textContent = ship ? Cart.money(ship) : 'Free';
+  $('#s-total').textContent = Cart.money(sub + ship);
+
+  $('#co-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target;
+    if (!f.checkValidity()) { f.reportValidity(); return; }
+    const order = 'SW' + Math.floor(100000 + Math.random() * 900000);
+    const email = f.email.value;
+    Cart.clear();
+    $('#co-main').innerHTML = `<div class="done-box rise in"><div class="ok"><svg width="30" height="30" viewBox="0 0 20 20"><path d="M5 10.5l3 3 7-7" fill="none" stroke="#1f6fae" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+      <h2>Thanks, ${f.first.value.replace(/[<>&"]/g,'')}!</h2><p class="sub" style="margin:12px auto 8px">Test order <b>${order}</b> placed. In live mode a confirmation would go to ${email.replace(/[<>&"]/g,'')}.</p>
+      <p class="sub" style="margin:0 auto 24px">Total: ${Cart.money(sub + ship)}</p><a class="btn btn-ink" href="./">Back to store</a></div>`;
+    scrollTo(0, 0);
+  });
+})();
+</script>
+</body>
+</html>
