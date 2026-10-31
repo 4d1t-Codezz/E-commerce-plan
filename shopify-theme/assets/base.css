@@ -968,3 +968,8 @@ body.sw-vivid { color: #fff; }
   .hero--overlay .hero__content .button { margin-top: 30px !important; }
 }
 .hero--overlay .hero__content .button { border: 0 !important; padding-inline: 30px; }
+/* subscribe band: no box-in-a-box, just a wide row on the backdrop */
+.sw-band { background: none !important; border: 0 !important; border-top: 1px solid rgba(255,255,255,.35) !important; border-bottom: 1px solid rgba(255,255,255,.35) !important; border-radius: 0 !important; padding: clamp(40px, 6vw, 72px) 0 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.sw-band__glass { background: none !important; border: 0 !important; padding: 0 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; max-width: none !important; display: grid; gap: 20px; }
+@media (min-width: 990px) { .sw-band__glass { grid-template-columns: 1fr auto; align-items: end; column-gap: 64px; } .sw-band__glass .sw-show__heading { font-size: clamp(44px, 5vw, 80px); } .sw-band__btn { margin-top: 0 !important; grid-column: 2; grid-row: 1 / span 3; align-self: end; } }
+.sw-band__btn { border: 0 !important; }
