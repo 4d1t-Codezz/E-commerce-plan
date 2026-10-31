@@ -1,0 +1,147 @@
+{%- liquid
+  assign product = section.settings.product
+  assign image = section.settings.image
+  if image == blank and section.settings.asset_image == blank
+    assign image = product.featured_media
+  endif
+  assign link = section.settings.button_link | default: product.url | default: routes.all_products_collection_url
+-%}
+<section class="hero hero--{{ section.settings.layout }} section--{{ section.settings.background }}" id="hero-{{ section.id }}">
+  <div class="hero__inner page-width{% if section.settings.image_right %} hero__inner--reverse{% endif %}">
+    <div class="hero__media">
+      {%- if image != blank -%}
+        {{ image | image_url: width: 1600 | image_tag: loading: 'eager', fetchpriority: 'high', class: 'hero__img', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600, 900, 1200, 1600', alt: section.settings.heading }}
+      {%- elsif section.settings.asset_image != blank -%}
+        <img src="{{ section.settings.asset_image | asset_url }}" alt="{{ section.settings.heading | escape }}" class="hero__img" width="1600" height="1600" fetchpriority="high">
+      {%- else -%}
+        <div class="hero__placeholder">{{ 'lifestyle-1' | placeholder_svg_tag }}</div>
+      {%- endif -%}
+      {%- if section.settings.media_badge != blank -%}
+        <div class="hero__sticker"><span>{{ section.settings.media_badge }}</span></div>
+      {%- endif -%}
+    </div>
+    <div class="hero__content">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="hero__heading">{{ section.settings.heading }}</h1>
+      {%- if section.settings.text != blank -%}<div class="hero__text">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ link }}" class="button button--large">{{ section.settings.button_label }} {% render 'icon', name: 'arrow-right', size: 18 %}</a>
+      {%- endif -%}
+      {%- if section.settings.points != blank -%}
+        <ul class="hero__points">
+          {%- assign points = section.settings.points | split: '|' -%}
+          {%- for p in points -%}<li>{% render 'icon', name: 'check', size: 16, stroke: 2 %}{{ p | strip }}</li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "class": "section-hero",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "split",
+          "label": "Image beside text"
+        },
+        {
+          "value": "overlay",
+          "label": "Full-width image, text on top"
+        }
+      ],
+      "default": "split"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (falls back to the product's photo)"
+    },
+    {
+      "type": "text",
+      "id": "asset_image",
+      "label": "Bundled image file (used when no image is picked)",
+      "default": "hero.jpg"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Featured product (button links here)"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_right",
+      "label": "Image on the right",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "media_badge",
+      "label": "Round sticker on image",
+      "default": "Up to 50% off"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small text above heading",
+      "default": "New \u00b7 Daily wellness gummies"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Glow from the inside out"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Skin, sleep and glow support in one chewable a day. No pills, no powders, no mess. Just a gummy that actually tastes good.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop the collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "points",
+      "label": "Check points (separate with |)",
+      "default": "Vegan & gluten-free | Third-party tested | 30-day guarantee"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        {
+          "value": "plain",
+          "label": "Plain"
+        },
+        {
+          "value": "soft",
+          "label": "Soft"
+        }
+      ],
+      "default": "plain"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

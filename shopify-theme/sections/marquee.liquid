@@ -1,0 +1,24 @@
+{%- assign items = section.settings.items | split: '|' -%}
+<section class="marquee" style="--marquee-bg: {{ section.settings.bg }}; --marquee-fg: {{ section.settings.fg }};" aria-label="Highlights">
+  <div class="marquee__track">
+    {%- for n in (1..4) -%}
+      <ul class="marquee__group"{% unless forloop.first %} aria-hidden="true"{% endunless %}>
+        {%- for item in items -%}
+          <li>{{ item | strip }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Scrolling text",
+  "settings": [
+    { "type": "text", "id": "items", "label": "Items (separate with |)", "default": "Vegan | Gluten-free | No artificial colors | Third-party tested | Made in small batches | 30-day guarantee" },
+    { "type": "color", "id": "bg", "label": "Background", "default": "#24563A" },
+    { "type": "color", "id": "fg", "label": "Text", "default": "#FFFFFF" }
+  ],
+  "presets": [{ "name": "Scrolling text" }]
+}
+{% endschema %}

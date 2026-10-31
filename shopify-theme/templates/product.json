@@ -1,0 +1,189 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "note": ""
+          }
+        },
+        "benefits": {
+          "type": "benefits",
+          "settings": {
+            "items": "90 soft chews per jar, a 30 to 90-day supply depending on size\nMade for dogs 7 and up, chicken flavor\nFree US shipping"
+          }
+        },
+        "variants": {
+          "type": "variant_picker",
+          "settings": {
+            "popular_label": "Most popular"
+          }
+        },
+        "buy": {
+          "type": "buy_buttons"
+        },
+        "trust": {
+          "type": "trust",
+          "settings": {
+            "t1": "Free US shipping",
+            "t2": "30-day guarantee",
+            "t3": "Secure checkout"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "heading": "Details"
+          }
+        },
+        "ingredients": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Ingredients",
+            "icon": "leaf",
+            "metafield_key": "ingredients",
+            "content": "<p>See the Supplement Facts panel in the product photos for the full ingredient list and amounts.</p>"
+          }
+        },
+        "howto": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "How to use",
+            "icon": "clock",
+            "metafield_key": "how_to_use",
+            "content": "<p>Give with food once a day. Under 25 lb: 1 chew. 25 to 75 lb: 2 chews. Over 75 lb: 3 chews.</p>"
+          }
+        },
+        "shipping": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Shipping & returns",
+            "icon": "truck",
+            "metafield_key": "",
+            "content": "<p>Free shipping on all US orders. Orders are processed within 1\u20132 business days and tracking is emailed when your order ships.</p><p>Covered by our 30-day money-back guarantee.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "benefits",
+        "variants",
+        "buy",
+        "trust",
+        "description",
+        "ingredients",
+        "howto",
+        "shipping"
+      ],
+      "settings": {
+        "gallery_badge": ""
+      }
+    },
+    "highlights": {
+      "type": "product-highlights",
+      "blocks": {
+        "p1": {
+          "type": "point",
+          "settings": {
+            "icon": "leaf",
+            "title": "Human-grade ingredients",
+            "text": "Made with the same quality ingredients you'd want in your own vitamins."
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "icon": "flask",
+            "title": "Made for older dogs",
+            "text": "Daily support for joints, energy, coat and digestion as your dog ages."
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "icon": "clock",
+            "title": "Tastes like a treat",
+            "text": "Soft chicken-flavored chews, easy on older teeth. No pill pockets."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "product_image_index": 2,
+        "eyebrow": "",
+        "heading": "What Makes It Different",
+        "background": "soft"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "How long does one jar last?",
+            "answer": "<p>90 chews per jar. That's 90 days for a small dog, 45 for a medium dog and 30 for a large dog.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "When will my order ship?",
+            "answer": "<p>Orders ship within 1\u20132 business days and usually arrive in 5\u20138 business days.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Can my dog take it with medication?",
+            "answer": "<p>If your dog is on prescription medication or has a health condition, check with your vet before starting any supplement.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "Frequently Asked Questions",
+        "text": "",
+        "open_first": false,
+        "background": "plain"
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You May Also Like",
+        "limit": 3
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "items": "Made For Senior Dogs | Human-Grade Ingredients | One Chew A Day | Chicken Flavor | 30-Day Guarantee",
+        "bg": "#CFE7FB",
+        "fg": "#0F1E2E"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "marquee",
+    "highlights",
+    "faq",
+    "related"
+  ]
+}

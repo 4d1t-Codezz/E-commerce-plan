@@ -1,0 +1,84 @@
+<footer class="footer">
+  <div class="footer__top page-width">
+    <div class="footer__brand">
+      <a href="{{ routes.root_url }}" class="footer__logo">{% render 'wordmark' %}</a>
+      {%- if section.settings.about != blank -%}<div class="footer__about">{{ section.settings.about }}</div>{%- endif -%}
+      <div class="footer__social">
+        {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" aria-label="Instagram">{% render 'icon', name: 'instagram', size: 20 %}</a>{%- endif -%}
+        {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" aria-label="TikTok">{% render 'icon', name: 'tiktok', size: 20 %}</a>{%- endif -%}
+        {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" aria-label="Facebook">{% render 'icon', name: 'facebook', size: 20 %}</a>{%- endif -%}
+      </div>
+    </div>
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'menu' -%}
+          <div class="footer__col" {{ block.shopify_attributes }}>
+            <h4 class="footer__heading">{{ block.settings.title }}</h4>
+            <ul class="footer__links">
+              {%- for link in block.settings.menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- when 'newsletter' -%}
+          <div class="footer__col footer__col--wide" {{ block.shopify_attributes }}>
+            <h4 class="footer__heading">{{ block.settings.title }}</h4>
+            <p class="footer__text">{{ block.settings.text }}</p>
+            {%- form 'customer', id: 'FooterNewsletter', class: 'footer__form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              {%- if form.posted_successfully? -%}
+                <p class="footer__success">{% render 'icon', name: 'check', size: 16, stroke: 2 %} Thanks for subscribing.</p>
+              {%- else -%}
+                <div class="field-inline">
+                  <label class="visually-hidden" for="FooterEmail">Email</label>
+                  <input id="FooterEmail" type="email" name="contact[email]" placeholder="Email address" autocomplete="email" required>
+                  <button type="submit" aria-label="Subscribe">{% render 'icon', name: 'arrow-right', size: 20 %}</button>
+                </div>
+              {%- endif -%}
+            {%- endform -%}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="footer__bottom page-width">
+    <p class="footer__copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+    <ul class="footer__policies">
+      {%- for policy in shop.policies -%}
+        <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
+      {%- endfor -%}
+    </ul>
+    {%- if section.settings.show_payment -%}{% render 'payment-icons' %}{%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": [
+    { "type": "richtext", "id": "about", "label": "About text", "default": "<p>Daily gummies for glow, sleep and skin. Based in the US.</p>" },
+    { "type": "checkbox", "id": "show_payment", "label": "Show payment icons", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Newsletter" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Join the list for early access to new drops and members-only offers." }
+      ]
+    }
+  ]
+}
+{% endschema %}

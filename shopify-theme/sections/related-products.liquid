@@ -1,0 +1,28 @@
+<section class="section related">
+  <div class="page-width">
+    <div class="section-head">
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+      <a href="{{ routes.all_products_collection_url }}" class="link-arrow">Shop all {% render 'icon', name: 'arrow-right', size: 16 %}</a>
+    </div>
+    <div class="grid grid--3">
+      {%- assign shown = 0 -%}
+      {%- for p in collections['all'].products -%}
+        {%- if p.id != product.id and shown < section.settings.limit -%}
+          {% render 'product-card', product: p %}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Related products",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Complete the routine" },
+    { "type": "range", "id": "limit", "label": "Products", "min": 2, "max": 6, "step": 1, "default": 3 }
+  ],
+  "presets": [{ "name": "Related products" }]
+}
+{% endschema %}

@@ -1,0 +1,49 @@
+<section class="section compare section--{{ section.settings.background }}">
+  <div class="page-width compare__inner">
+    <div class="compare__intro">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="section-sub">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="compare__table" role="table" aria-label="{{ section.settings.heading | escape }}">
+      <div class="compare__row compare__row--head" role="row">
+        <span role="columnheader"></span>
+        <span role="columnheader" class="compare__us">{{ section.settings.us_label | default: shop.name }}</span>
+        <span role="columnheader">{{ section.settings.them_label }}</span>
+      </div>
+      {%- for block in section.blocks -%}
+        <div class="compare__row" role="row" {{ block.shopify_attributes }}>
+          <span role="cell" class="compare__label">{{ block.settings.label }}</span>
+          <span role="cell" class="compare__us">{% if block.settings.us %}<span class="tick tick--yes">{% render 'icon', name: 'check', size: 16, stroke: 2.4 %}</span>{% else %}<span class="tick tick--no">{% render 'icon', name: 'x', size: 14, stroke: 2.2 %}</span>{% endif %}</span>
+          <span role="cell">{% if block.settings.them %}<span class="tick tick--yes tick--muted">{% render 'icon', name: 'check', size: 16, stroke: 2.4 %}</span>{% else %}<span class="tick tick--no">{% render 'icon', name: 'x', size: 14, stroke: 2.2 %}</span>{% endif %}</span>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparison table",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small text", "default": "The difference" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Not your average gummy" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Most gummies are candy with a vitamin sprinkled in. Ours are built the other way around." },
+    { "type": "text", "id": "us_label", "label": "Your column label (blank uses store name)" },
+    { "type": "text", "id": "them_label", "label": "Other column label", "default": "Others" },
+    { "type": "select", "id": "background", "label": "Background", "options": [{ "value": "plain", "label": "Plain" }, { "value": "soft", "label": "Soft" }], "default": "plain" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Third-party lab tested" },
+        { "type": "checkbox", "id": "us", "label": "You have it", "default": true },
+        { "type": "checkbox", "id": "them", "label": "Others have it", "default": false }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Comparison table", "blocks": [{ "type": "row" }, { "type": "row" }, { "type": "row" }] }]
+}
+{% endschema %}

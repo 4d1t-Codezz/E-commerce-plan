@@ -1,0 +1,57 @@
+<section class="section iwt section--{{ section.settings.background }}">
+  <div class="page-width iwt__inner{% if section.settings.image_right %} iwt__inner--reverse{% endif %}">
+    <div class="iwt__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '600, 900, 1200, 1400', class: 'iwt__img' }}
+      {%- elsif section.settings.asset_image != blank -%}
+        <img src="{{ section.settings.asset_image | asset_url }}" alt="" loading="lazy" class="iwt__img" width="1200" height="1200">
+      {%- else -%}
+        <div class="iwt__placeholder">{{ 'lifestyle-2' | placeholder_svg_tag }}</div>
+      {%- endif -%}
+    </div>
+    <div class="iwt__content">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+      <div class="rte">{{ section.settings.text }}</div>
+      {%- if section.blocks.size > 0 -%}
+        <dl class="iwt__stats">
+          {%- for block in section.blocks -%}
+            <div {{ block.shopify_attributes }}><dt>{{ block.settings.value }}</dt><dd>{{ block.settings.label }}</dd></div>
+          {%- endfor -%}
+        </dl>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="button button--outline">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "asset_image", "label": "Bundled image file (used when no image is picked)", "default": "story.jpg" },
+    { "type": "checkbox", "id": "image_right", "label": "Image on the right", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Small text", "default": "Our approach" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Fewer ingredients. Better ones." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>We started with a simple question: why are most supplements so hard to take every day? Our answer is a short label, real doses and a flavor you look forward to.</p><p>Every batch is made in a GMP-certified facility and checked by an independent lab before it ships.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "See ingredients" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "select", "id": "background", "label": "Background", "options": [{ "value": "plain", "label": "Plain" }, { "value": "soft", "label": "Soft" }], "default": "plain" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "0g" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Added sugar" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Image with text" }]
+}
+{% endschema %}

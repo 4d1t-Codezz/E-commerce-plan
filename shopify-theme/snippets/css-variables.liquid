@@ -1,0 +1,16 @@
+<style>
+  :root {
+    --color-bg: {{ settings.color_bg }};
+    --color-bg-alt: {{ settings.color_bg_alt }};
+    --color-text: {{ settings.color_text }};
+    --color-text-rgb: {{ settings.color_text.red }}, {{ settings.color_text.green }}, {{ settings.color_text.blue }};
+    --color-muted: {{ settings.color_muted }};
+    --color-accent: {{ settings.color_accent }};
+    --color-accent-rgb: {{ settings.color_accent.red }}, {{ settings.color_accent.green }}, {{ settings.color_accent.blue }};
+    --color-accent-text: {{ settings.color_accent_text }};
+    --color-highlight: {{ settings.color_highlight }};
+    --color-star: {{ settings.color_star }};
+    --color-border: {{ settings.color_border }};
+    --heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
+  }
+</style>

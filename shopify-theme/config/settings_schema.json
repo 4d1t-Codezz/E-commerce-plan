@@ -1,0 +1,119 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Meridian",
+    "theme_version": "1.0.0",
+    "theme_author": "Custom",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "Store status",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "While selling is off, every buy button becomes a \"Coming soon\" button with a notify-me email form. Turn this on when you're ready to take orders."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_purchasing",
+        "label": "Allow customers to buy",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "coming_soon_label",
+        "label": "Button text while selling is off",
+        "default": "Coming soon"
+      },
+      {
+        "type": "text",
+        "id": "notify_text",
+        "label": "Notify-me text",
+        "default": "Get an email when this is available."
+      }
+    ]
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 60,
+        "max": 260,
+        "step": 5,
+        "unit": "px",
+        "default": 130
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "color_bg", "label": "Background", "default": "#FFFFFF" },
+      { "type": "color", "id": "color_bg_alt", "label": "Soft background (bands)", "default": "#F4F4F2" },
+      { "type": "color", "id": "color_text", "label": "Text", "default": "#121212" },
+      { "type": "color", "id": "color_muted", "label": "Muted text", "default": "#5C5C5C" },
+      { "type": "color", "id": "color_accent", "label": "Buttons", "default": "#1F8A4C" },
+      { "type": "color", "id": "color_accent_text", "label": "Button text", "default": "#FFFFFF" },
+      { "type": "color", "id": "color_highlight", "label": "Sale and highlight", "default": "#D23A2A" },
+      { "type": "color", "id": "color_star", "label": "Stars", "default": "#121212" },
+      { "type": "color", "id": "color_border", "label": "Borders", "default": "#E3E3E3" }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "heading_font",
+        "label": "Heading font",
+        "options": [
+          { "value": "archivo", "label": "Archivo (bold grotesk)" },
+          { "value": "fraunces", "label": "Fraunces (soft serif)" },
+          { "value": "poppins", "label": "Poppins (geometric)" }
+        ],
+        "default": "poppins"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "label": "Heading size",
+        "min": 80,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      { "type": "checkbox", "id": "card_show_rating", "label": "Show star rating (turn on once you have real reviews)", "default": false },
+      { "type": "text", "id": "card_rating_text", "label": "Rating text", "default": "4.8" },
+      { "type": "checkbox", "id": "card_show_second_image", "label": "Show second image on hover", "default": true },
+      { "type": "checkbox", "id": "card_show_save_badge", "label": "Show savings badge", "default": true }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "text", "id": "social_instagram", "label": "Instagram link" },
+      { "type": "text", "id": "social_tiktok", "label": "TikTok link" },
+      { "type": "text", "id": "social_facebook", "label": "Facebook link" }
+    ]
+  }
+]

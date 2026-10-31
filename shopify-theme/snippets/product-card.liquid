@@ -1,0 +1,42 @@
+{%- comment -%}
+  Usage: {% render 'product-card', product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign second = product.media[1]
+  assign card_alt = product.featured_media.alt | default: product.title
+  assign tagline = product.metafields.custom.tagline.value | default: product.type
+  assign on_sale = false
+  if variant.compare_at_price > variant.price
+    assign on_sale = true
+    assign saving = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price | round
+  endif
+-%}
+<article class="card">
+  <a href="{{ product.url }}" class="card__media{% if settings.card_show_second_image and second %} card__media--hover{% endif %}" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 900 | image_tag: loading: 'lazy', class: 'card__img card__img--primary', sizes: '(min-width: 990px) 33vw, 50vw', widths: '360, 540, 720, 900', alt: card_alt }}
+      {%- if settings.card_show_second_image and second -%}
+        {{ second | image_url: width: 900 | image_tag: loading: 'lazy', class: 'card__img card__img--secondary', sizes: '(min-width: 990px) 33vw, 50vw', widths: '360, 540, 720, 900', alt: '' }}
+      {%- endif -%}
+    {%- else -%}
+      <div class="card__placeholder">{{ 'product-1' | placeholder_svg_tag }}</div>
+    {%- endif -%}
+    <div class="card__badges">
+      {%- if settings.enable_purchasing == false -%}
+        <span class="badge badge--dark">{{ settings.coming_soon_label }}</span>
+      {%- elsif on_sale and settings.card_show_save_badge -%}
+        <span class="badge badge--sale">Save {{ saving }}%</span>
+      {%- endif -%}
+    </div>
+  </a>
+  <div class="card__info">
+    {%- if settings.card_show_rating -%}
+      {%- assign card_rating = product.metafields.reviews.rating.value.rating | default: settings.card_rating_text -%}
+      {% render 'stars', rating: card_rating, count: card_rating, size: 13 %}
+    {%- endif -%}
+    <h3 class="card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    {%- if tagline != blank -%}<p class="card__tagline">{{ tagline }}</p>{%- endif -%}
+    {% render 'price', product: product, show_badge: false %}
+  </div>
+</article>

@@ -1,0 +1,65 @@
+{%- liquid
+  assign hl_image = section.settings.image
+  if hl_image == blank and product
+    assign idx = section.settings.product_image_index | minus: 1
+    assign hl_image = product.media[idx]
+  endif
+-%}
+<section class="section highlights section--{{ section.settings.background }}">
+  <div class="page-width highlights__inner">
+    <div class="highlights__media">
+      {%- if hl_image != blank -%}
+        {{ hl_image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '600, 900, 1200, 1400', class: 'highlights__img', alt: '' }}
+      {%- else -%}
+        <div class="iwt__placeholder">{{ 'lifestyle-2' | placeholder_svg_tag }}</div>
+      {%- endif -%}
+    </div>
+    <div class="highlights__content">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+      <ol class="highlights__list">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            <span class="highlights__icon">{% render 'icon', name: block.settings.icon, size: 22 %}</span>
+            <div>
+              <h3>{{ block.settings.title }}</h3>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product highlights",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "range", "id": "product_image_index", "label": "Or use product photo number", "min": 1, "max": 6, "step": 1, "default": 3 },
+    { "type": "text", "id": "eyebrow", "label": "Small text", "default": "Inside every gummy" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Small gummy. Serious formula." },
+    { "type": "select", "id": "background", "label": "Background", "options": [{ "value": "plain", "label": "Plain" }, { "value": "soft", "label": "Soft" }], "default": "soft" }
+  ],
+  "blocks": [
+    {
+      "type": "point", "name": "Point",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" }, { "value": "flask", "label": "Flask" }, { "value": "sparkle", "label": "Sparkle" },
+            { "value": "sun", "label": "Sun" }, { "value": "moon", "label": "Moon" }, { "value": "drop", "label": "Drop" },
+            { "value": "heart", "label": "Heart" }, { "value": "shield", "label": "Shield" }, { "value": "clock", "label": "Clock" }
+          ],
+          "default": "leaf"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Clean formula" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Describe a benefit in one or two sentences." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product highlights", "blocks": [{ "type": "point" }, { "type": "point" }, { "type": "point" }] }]
+}
+{% endschema %}

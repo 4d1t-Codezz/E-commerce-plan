@@ -1,0 +1,22 @@
+{%- comment -%}
+  Collects emails while selling is turned off. Signups land in Customers with the tag "notify-me".
+  Usage: {% render 'notify-form', product: product, form_id: 'x' %}
+{%- endcomment -%}
+{%- assign notify_tag = 'notify-me' -%}
+{%- if product -%}{%- assign notify_tag = 'notify-me, waitlist-' | append: product.handle -%}{%- endif -%}
+<div class="notify">
+  {%- form 'customer', id: form_id, class: 'notify__form' -%}
+    <input type="hidden" name="contact[tags]" value="{{ notify_tag }}">
+    {%- if form.posted_successfully? -%}
+      <p class="notify__success">{% render 'icon', name: 'check', size: 18, stroke: 2 %} You're on the list. We'll email you when it's live.</p>
+    {%- else -%}
+      <p class="notify__text">{% render 'icon', name: 'bell', size: 16 %} {{ settings.notify_text }}</p>
+      <div class="notify__row">
+        <label class="visually-hidden" for="{{ form_id }}-email">Email</label>
+        <input id="{{ form_id }}-email" type="email" name="contact[email]" placeholder="Your email" autocomplete="email" required>
+        <button type="submit" class="button button--outline">Notify me</button>
+      </div>
+      {%- if form.errors -%}<p class="notify__error">Please enter a valid email.</p>{%- endif -%}
+    {%- endif -%}
+  {%- endform -%}
+</div>

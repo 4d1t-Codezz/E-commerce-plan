@@ -1,0 +1,20 @@
+<section class="collection page-width">
+  <header class="collection__head">
+    <h1 class="h1">Search</h1>
+    <form action="{{ routes.search_url }}" method="get" class="search-page__form">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products" aria-label="Search">
+      <button type="submit" class="button">Search</button>
+    </form>
+    {%- if search.performed -%}<p class="section-sub">{{ search.results_count }} results for “{{ search.terms }}”</p>{%- endif -%}
+  </header>
+  {%- if search.performed -%}
+    <div class="grid grid--3">
+      {%- for item in search.results -%}
+        {%- if item.object_type == 'product' -%}{% render 'product-card', product: item %}{%- endif -%}
+      {%- else -%}
+        <p class="empty">Nothing matched. Try another word.</p>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+{% schema %}{ "name": "Search" }{% endschema %}

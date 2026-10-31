@@ -1,0 +1,96 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign logo_width = settings.logo_width
+  assign logo_style = 'width: ' | append: logo_width | append: 'px'
+-%}
+<header class="header{% if section.settings.sticky %} header--sticky{% endif %}" data-header>
+  <div class="header__top page-width">
+    <div class="header__left">
+      <button type="button" class="icon-button header__menu-toggle" aria-label="Open menu" aria-controls="MenuDrawer" aria-expanded="false" data-menu-open>
+        {% render 'icon', name: 'menu', size: 24 %}
+      </button>
+      <button type="button" class="icon-button header__search" aria-label="Search" data-search-open>
+        {% render 'icon', name: 'search', size: 22 %}
+      </button>
+    </div>
+
+    <a href="{{ routes.root_url }}" class="header__logo" aria-label="{{ shop.name | escape }} home">
+      {%- if settings.logo != blank -%}
+        {{ settings.logo | image_url: width: 600 | image_tag: width: logo_width, style: logo_style, alt: shop.name, class: 'header__logo-img' }}
+      {%- else -%}
+        {% render 'wordmark' %}
+      {%- endif -%}
+    </a>
+
+    <div class="header__right">
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="icon-button header__account" aria-label="Account">{% render 'icon', name: 'account', size: 22 %}</a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="icon-button header__cart" aria-label="Cart, {{ cart.item_count }} items">
+        {% render 'icon', name: 'bag', size: 22 %}
+        {%- if cart.item_count > 0 -%}<span class="header__cart-count">{{ cart.item_count }}</span>{%- endif -%}
+      </a>
+    </div>
+  </div>
+
+  {%- if menu.links.size > 0 -%}
+    <nav class="header__nav" aria-label="Main">
+      <ul class="header__nav-list">
+        {%- for link in menu.links -%}
+          <li class="header__nav-item{% if link.links.size > 0 %} has-dropdown{% endif %}">
+            <a href="{{ link.url }}" class="header__nav-link{% if link.current or link.child_active %} is-active{% endif %}">
+              {{ link.title }}
+              {%- if link.links.size > 0 -%}{% render 'icon', name: 'chevron-down', size: 14 %}{%- endif -%}
+            </a>
+            {%- if link.links.size > 0 -%}
+              <ul class="header__dropdown">
+                {%- for child in link.links -%}
+                  <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  {%- endif -%}
+</header>
+
+<div class="menu-drawer" id="MenuDrawer" hidden>
+  <div class="menu-drawer__overlay" data-menu-close></div>
+  <div class="menu-drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="menu-drawer__head">
+      {% render 'wordmark', size: 'small' %}
+      <button type="button" class="icon-button" aria-label="Close menu" data-menu-close>{% render 'icon', name: 'close', size: 24 %}</button>
+    </div>
+    <ul class="menu-drawer__list">
+      {%- for link in menu.links -%}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }} {% render 'icon', name: 'chevron-right', size: 18 %}</a>
+          {%- if link.links.size > 0 -%}
+            <ul class="menu-drawer__sub">
+              {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    <div class="menu-drawer__foot">
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}">{% render 'icon', name: 'account', size: 18 %} Account</a>
+      {%- endif -%}
+      <a href="{{ routes.search_url }}">{% render 'icon', name: 'search', size: 18 %} Search</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "sticky", "label": "Stick to top on scroll", "default": true }
+  ]
+}
+{% endschema %}

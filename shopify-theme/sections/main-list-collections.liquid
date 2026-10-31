@@ -1,0 +1,12 @@
+<section class="collection page-width">
+  <header class="collection__head"><h1 class="h1">Collections</h1></header>
+  <div class="grid grid--3">
+    {%- for c in collections -%}
+      <a href="{{ c.url }}" class="collection-tile">
+        {%- if c.featured_image -%}{{ c.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: c.title }}{%- endif -%}
+        <span>{{ c.title }} {% render 'icon', name: 'arrow-right', size: 16 %}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}{ "name": "Collections list" }{% endschema %}

@@ -1,0 +1,43 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop": {
+          "type": "menu",
+          "settings": {
+            "title": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "help": {
+          "type": "menu",
+          "settings": {
+            "title": "Help",
+            "menu": "footer"
+          }
+        },
+        "news": {
+          "type": "newsletter",
+          "settings": {
+            "title": "Newsletter",
+            "text": "Get launch news and 15% off your first order."
+          }
+        }
+      },
+      "block_order": [
+        "shop",
+        "help",
+        "news"
+      ],
+      "settings": {
+        "show_payment": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

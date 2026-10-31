@@ -1,0 +1,58 @@
+<section class="section reviews section--{{ section.settings.background }}">
+  <div class="page-width">
+    <div class="section-head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h2 class="h2">{{ section.settings.heading }}</h2>
+      </div>
+      {%- if section.settings.summary != blank -%}
+        <div class="reviews__summary">{% render 'stars', rating: 5, size: 18 %}<span>{{ section.settings.summary }}</span></div>
+      {%- endif -%}
+    </div>
+    <div class="reviews__track" data-slider>
+      {%- for block in section.blocks -%}
+        <figure class="review" {{ block.shopify_attributes }}>
+          {% render 'stars', rating: block.settings.rating, size: 15 %}
+          {%- if block.settings.title != blank -%}<p class="review__title">{{ block.settings.title }}</p>{%- endif -%}
+          <blockquote class="review__body">{{ block.settings.quote }}</blockquote>
+          <figcaption class="review__author">
+            <span class="review__avatar" aria-hidden="true">{{ block.settings.author | slice: 0 }}</span>
+            <span>
+              <strong>{{ block.settings.author }}</strong>
+              {%- if block.settings.verified -%}<span class="review__verified">{% render 'icon', name: 'verified', size: 14 %} Verified buyer</span>{%- endif -%}
+            </span>
+            {%- if block.settings.product != blank -%}<span class="review__product">{{ block.settings.product }}</span>{%- endif -%}
+          </figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "paragraph", "content": "Use real customer reviews only. Remove or replace the sample text before you start selling." },
+    { "type": "text", "id": "eyebrow", "label": "Small text", "default": "Reviews" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What people are saying" },
+    { "type": "text", "id": "summary", "label": "Rating summary" },
+    { "type": "select", "id": "background", "label": "Background", "options": [{ "value": "plain", "label": "Plain" }, { "value": "soft", "label": "Soft" }], "default": "soft" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Title", "default": "Sample review title" },
+        { "type": "textarea", "id": "quote", "label": "Review", "default": "Replace this with a real review from a customer." },
+        { "type": "text", "id": "author", "label": "Name", "default": "Customer name" },
+        { "type": "text", "id": "product", "label": "Product name" },
+        { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": false }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Testimonials", "blocks": [{ "type": "review" }, { "type": "review" }, { "type": "review" }] }]
+}
+{% endschema %}

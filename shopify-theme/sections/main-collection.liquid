@@ -1,0 +1,47 @@
+<section class="collection page-width">
+  <header class="collection__head">
+    <h1 class="h1">{% if collection.handle == 'all' %}{{ section.settings.all_title }}{% else %}{{ collection.title }}{% endif %}</h1>
+    {%- if collection.description != blank -%}
+      <div class="collection__desc rte">{{ collection.description }}</div>
+    {%- elsif section.settings.fallback_text != blank -%}
+      <p class="collection__desc">{{ section.settings.fallback_text }}</p>
+    {%- endif -%}
+  </header>
+
+  {%- paginate collection.products by 24 -%}
+    <div class="collection__bar">
+      <span>Showing {{ collection.products.size }} of {{ collection.products_count }}</span>
+      {%- if collection.sort_options.size > 0 -%}
+        <label class="collection__sort">
+          <span>Sort</span>
+          <select onchange="var u=new URL(location.href);u.searchParams.set('sort_by',this.value);location.href=u;">
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}"{% if option.value == collection.sort_by %} selected{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+          {% render 'icon', name: 'chevron-down', size: 14 %}
+        </label>
+      {%- endif -%}
+    </div>
+    <div class="grid grid--3">
+      {%- for product in collection.products -%}
+        {% render 'product-card', product: product %}
+      {%- else -%}
+        <p class="empty">No products here yet. Check back soon.</p>
+      {%- endfor -%}
+    </div>
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination" aria-label="Pagination">{{ paginate | default_pagination }}</nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+</section>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "text", "id": "all_title", "label": "Title for the all-products page", "default": "Shop all" },
+    { "type": "text", "id": "fallback_text", "label": "Text when collection has no description", "default": "Daily gummies made with clean ingredients and real doses." }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+{%- liquid
+  case settings.heading_font
+    when 'fraunces'
+      assign heading_family = "'Fraunces', Georgia, serif"
+      assign heading_query = 'family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700'
+      assign heading_weight = 600
+      assign heading_tracking = '-0.02em'
+    when 'poppins'
+      assign heading_family = "'Poppins', 'Helvetica Neue', Arial, sans-serif"
+      assign heading_query = 'family=Poppins:wght@500;600;700'
+      assign heading_weight = 600
+      assign heading_tracking = '-0.01em'
+    else
+      assign heading_family = "'Archivo', 'Helvetica Neue', Arial, sans-serif"
+      assign heading_query = 'family=Archivo:wght@600;700;800;900'
+      assign heading_weight = 800
+      assign heading_tracking = '-0.03em'
+  endcase
+-%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?{{ heading_query }}&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font-heading: {{ heading_family }};
+    --font-heading-weight: {{ heading_weight }};
+    --font-heading-tracking: {{ heading_tracking }};
+    --font-body: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+  }
+</style>

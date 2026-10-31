@@ -1,0 +1,15 @@
+{%- comment -%}
+  Usage: {% render 'stars', rating: 4.8, count: '2,140 reviews', size: 16 %}
+{%- endcomment -%}
+{%- assign r = rating | default: 5 | plus: 0 -%}
+{%- assign pct = r | divided_by: 5.0 | times: 100 -%}
+{%- assign star_size = size | default: 15 -%}
+<span class="stars" style="--star-size: {{ star_size }}px;" aria-label="Rated {{ r }} out of 5">
+  <span class="stars__track">
+    {%- for i in (1..5) -%}{% render 'icon', name: 'star', size: star_size %}{%- endfor -%}
+    <span class="stars__fill" style="width: {{ pct }}%;">
+      {%- for i in (1..5) -%}{% render 'icon', name: 'star', size: star_size %}{%- endfor -%}
+    </span>
+  </span>
+  {%- if count != blank -%}<span class="stars__count">{{ count }}</span>{%- endif -%}
+</span>

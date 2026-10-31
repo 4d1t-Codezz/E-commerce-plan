@@ -1,0 +1,321 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign can_buy = settings.enable_purchasing
+  assign form_id = 'ProductForm-' | append: section.id
+-%}
+<section class="product page-width" data-product-section data-section="{{ section.id }}">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="{{ routes.root_url }}">Home</a>
+    {% render 'icon', name: 'chevron-right', size: 12 %}
+    <a href="{{ routes.all_products_collection_url }}">Shop</a>
+    {% render 'icon', name: 'chevron-right', size: 12 %}
+    <span aria-current="page">{{ product.title }}</span>
+  </nav>
+
+  <div class="product__grid">
+    {%- comment -%} Gallery {%- endcomment -%}
+    <div class="product__gallery" data-gallery>
+      <div class="gallery__main">
+        <ul class="gallery__slides" data-gallery-slides>
+          {%- for media in product.media -%}
+            <li class="gallery__slide" data-index="{{ forloop.index0 }}">
+              {%- assign media_alt = media.alt | default: product.title -%}
+              {%- if forloop.first -%}
+                {{ media | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600, 900, 1200, 1400', alt: media_alt }}
+              {%- else -%}
+                {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600, 900, 1200, 1400', alt: media_alt }}
+              {%- endif -%}
+            </li>
+          {%- else -%}
+            <li class="gallery__slide">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</li>
+          {%- endfor -%}
+        </ul>
+        {%- if product.media.size > 1 -%}
+          <button type="button" class="gallery__arrow gallery__arrow--prev" aria-label="Previous image" data-gallery-prev>{% render 'icon', name: 'chevron-left', size: 20 %}</button>
+          <button type="button" class="gallery__arrow gallery__arrow--next" aria-label="Next image" data-gallery-next>{% render 'icon', name: 'chevron-right', size: 20 %}</button>
+          <div class="gallery__dots" aria-hidden="true">
+            {%- for media in product.media -%}<span class="gallery__dot{% if forloop.first %} is-active{% endif %}"></span>{%- endfor -%}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.gallery_badge != blank -%}
+          <span class="gallery__badge">{{ section.settings.gallery_badge }}</span>
+        {%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <ul class="gallery__thumbs">
+          {%- for media in product.media -%}
+            <li>
+              <button type="button" class="gallery__thumb{% if forloop.first %} is-active{% endif %}" data-gallery-thumb="{{ forloop.index0 }}" aria-label="Show image {{ forloop.index }}">
+                {{ media | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+              </button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Info {%- endcomment -%}
+    <div class="product__info">
+      <div class="product__info-inner">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'rating' -%}
+              {%- assign block_rating = product.metafields.reviews.rating.value.rating | default: block.settings.rating -%}
+              {%- assign block_count = product.metafields.reviews.rating_count | default: block.settings.count_text -%}
+              <div class="product__rating" {{ block.shopify_attributes }}>
+                {% render 'stars', rating: block_rating, size: 16 %}
+                <span>{{ block_count }}</span>
+              </div>
+
+            {%- when 'title' -%}
+              <h1 class="product__title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+              {%- assign tagline = product.metafields.custom.tagline.value | default: product.type -%}
+              {%- if tagline != blank -%}<p class="product__tagline">{{ tagline }}</p>{%- endif -%}
+
+            {%- when 'price' -%}
+              <div class="product__price" {{ block.shopify_attributes }} data-price>
+                {% render 'price', product: product, variant: current_variant, show_badge: true, size: 'large' %}
+              </div>
+              {%- if block.settings.note != blank -%}<p class="product__price-note">{{ block.settings.note }}</p>{%- endif -%}
+
+            {%- when 'benefits' -%}
+              {%- assign lines = block.settings.items | newline_to_br | split: '<br />' -%}
+              <ul class="product__benefits" {{ block.shopify_attributes }}>
+                {%- for line in lines -%}
+                  {%- assign l = line | strip -%}
+                  {%- if l != blank -%}
+                    <li><span class="product__benefit-icon">{% render 'icon', name: 'check', size: 14, stroke: 2.4 %}</span>{{ l }}</li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+
+            {%- when 'variant_picker' -%}
+              {%- unless product.has_only_default_variant -%}
+                <div class="product__variants" {{ block.shopify_attributes }}>
+                  {%- for option in product.options_with_values -%}
+                    <fieldset class="variant-group">
+                      <legend>{{ option.name }}: <span data-option-label="{{ forloop.index0 }}">{{ option.selected_value }}</span></legend>
+                      <div class="variant-cards">
+                        {%- assign option_index = forloop.index0 -%}
+                        {%- for value in option.values -%}
+                          {%- liquid
+                            assign match = nil
+                            for v in product.variants
+                              if v.options[option_index] == value
+                                assign match = v
+                                break
+                              endif
+                            endfor
+                          -%}
+                          <label class="variant-card{% if option.selected_value == value %} is-selected{% endif %}">
+                            <input type="radio" name="option-{{ option_index }}" value="{{ value | escape }}" form="{{ form_id }}" {% if option.selected_value == value %}checked{% endif %} data-option-input="{{ option_index }}">
+                            <span class="variant-card__name">{{ value }}</span>
+                            {%- if match -%}
+                              <span class="variant-card__price">{{ match.price | money }}</span>
+                              {%- if match.compare_at_price > match.price -%}
+                                {%- assign vs = match.compare_at_price | minus: match.price | times: 100 | divided_by: match.compare_at_price | round -%}
+                                <span class="variant-card__save">Save {{ vs }}%</span>
+                              {%- endif -%}
+                            {%- endif -%}
+                            {%- if forloop.index == 2 and block.settings.popular_label != blank -%}
+                              <span class="variant-card__flag">{{ block.settings.popular_label }}</span>
+                            {%- endif -%}
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    </fieldset>
+                  {%- endfor -%}
+                </div>
+              {%- endunless -%}
+
+            {%- when 'buy_buttons' -%}
+              <div class="product__buy" {{ block.shopify_attributes }}>
+                {%- if can_buy -%}
+                  {%- form 'product', product, id: form_id, class: 'product__form', novalidate: 'novalidate' -%}
+                    <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+                    <div class="product__buy-row">
+                      <div class="qty">
+                        <button type="button" aria-label="Decrease quantity" data-qty="-1">{% render 'icon', name: 'minus', size: 16 %}</button>
+                        <input type="number" name="quantity" value="1" min="1" aria-label="Quantity">
+                        <button type="button" aria-label="Increase quantity" data-qty="1">{% render 'icon', name: 'plus', size: 16 %}</button>
+                      </div>
+                      <button type="submit" name="add" class="button button--large button--full" {% unless current_variant.available %}disabled{% endunless %} data-add-button>
+                        {%- if current_variant.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
+                      </button>
+                    </div>
+                  {%- endform -%}
+                {%- else -%}
+                  <form id="{{ form_id }}" class="product__form" onsubmit="return false;">
+                    <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+                  </form>
+                  <button type="button" class="button button--large button--full button--soon" disabled aria-disabled="true">
+                    {% render 'icon', name: 'clock', size: 18 %} {{ settings.coming_soon_label }}
+                  </button>
+                  {% render 'notify-form', product: product, form_id: 'Notify-main' %}
+                {%- endif -%}
+              </div>
+
+            {%- when 'trust' -%}
+              <ul class="product__trust" {{ block.shopify_attributes }}>
+                <li>{% render 'icon', name: 'truck', size: 22 %}<span>{{ block.settings.t1 }}</span></li>
+                <li>{% render 'icon', name: 'return', size: 22 %}<span>{{ block.settings.t2 }}</span></li>
+                <li>{% render 'icon', name: 'lock', size: 22 %}<span>{{ block.settings.t3 }}</span></li>
+              </ul>
+
+            {%- when 'guarantee' -%}
+              <div class="product__guarantee" {{ block.shopify_attributes }}>
+                <span class="product__guarantee-seal">{% render 'icon', name: 'shield', size: 28, stroke: 1.4 %}</span>
+                <div>
+                  <p class="product__guarantee-title">{{ block.settings.title }}</p>
+                  <p>{{ block.settings.text }}</p>
+                </div>
+              </div>
+
+            {%- when 'description' -%}
+              <details class="accordion" open {{ block.shopify_attributes }}>
+                <summary><span>{{ block.settings.heading }}</span><span class="accordion__icon">{% render 'icon', name: 'plus', size: 18 %}</span></summary>
+                <div class="accordion__body rte">{{ product.description }}</div>
+              </details>
+
+            {%- when 'collapsible' -%}
+              {%- liquid
+                assign body = block.settings.content
+                if block.settings.metafield_key != blank
+                  assign mf = product.metafields.custom[block.settings.metafield_key]
+                  if mf != blank
+                    assign body = mf | metafield_tag
+                  endif
+                endif
+              -%}
+              {%- if body != blank -%}
+                <details class="accordion" {{ block.shopify_attributes }}>
+                  <summary><span>{% render 'icon', name: block.settings.icon, size: 18 %} {{ block.settings.heading }}</span><span class="accordion__icon">{% render 'icon', name: 'plus', size: 18 %}</span></summary>
+                  <div class="accordion__body rte">{{ body }}</div>
+                </details>
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} Mobile sticky bar {%- endcomment -%}
+<div class="sticky-buy" data-sticky-buy hidden>
+  <div class="sticky-buy__inner page-width">
+    <div class="sticky-buy__product">
+      {%- if product.featured_media -%}{{ product.featured_media | image_url: width: 120 | image_tag: alt: '' }}{%- endif -%}
+      <div>
+        <p class="sticky-buy__title">{{ product.title }}</p>
+        {% render 'price', product: product, variant: current_variant, show_badge: false %}
+      </div>
+    </div>
+    {%- if can_buy -%}
+      <button type="submit" form="{{ form_id }}" class="button">Add to cart</button>
+    {%- else -%}
+      <a href="#Notify-main-email" class="button button--soon-link">Notify me</a>
+    {%- endif -%}
+  </div>
+</div>
+
+<script type="application/json" data-product-json>
+  {
+    "variants": [
+      {%- for v in product.variants -%}
+        { "id": {{ v.id }}, "options": {{ v.options | json }}, "price": {{ v.price | money | json }}, "compare": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %}, "save": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price | round }}{% else %}0{% endif %}, "available": {{ v.available | json }} }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ request.origin | append: product.url | json }},
+    {%- if product.featured_media -%}"image": [{{ product.featured_media | image_url: width: 1200 | prepend: 'https:' | json }}],{%- endif -%}
+    "description": {{ product.description | strip_html | json }},
+    "brand": { "@type": "Brand", "name": {{ product.vendor | json }} },
+    "offers": [
+      {%- for variant in product.variants -%}
+        {
+          "@type": "Offer",
+          "availability": "https://schema.org/{% if variant.available and settings.enable_purchasing %}InStock{% else %}PreOrder{% endif %}",
+          "price": {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency": {{ cart.currency.iso_code | json }},
+          "url": {{ request.origin | append: variant.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "class": "section-main-product",
+  "settings": [
+    { "type": "text", "id": "gallery_badge", "label": "Badge on main image", "default": "Launching soon" }
+  ],
+  "blocks": [
+    {
+      "type": "rating", "name": "Star rating", "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "Uses your reviews app's rating when installed. Otherwise shows the text below. Use real numbers only." },
+        { "type": "text", "id": "rating", "label": "Rating", "default": "5" },
+        { "type": "text", "id": "count_text", "label": "Text next to stars", "default": "Be the first to review" }
+      ]
+    },
+    { "type": "title", "name": "Title", "limit": 1 },
+    {
+      "type": "price", "name": "Price", "limit": 1,
+      "settings": [{ "type": "text", "id": "note", "label": "Small note under price", "default": "Launch pricing. Free US shipping." }]
+    },
+    {
+      "type": "benefits", "name": "Benefit bullets", "limit": 1,
+      "settings": [{ "type": "textarea", "id": "items", "label": "One benefit per line", "default": "Supports a natural, healthy-looking glow\nVegan, gluten-free, no artificial dyes\nTastes like candy, works like a supplement" }]
+    },
+    {
+      "type": "variant_picker", "name": "Pack picker", "limit": 1,
+      "settings": [{ "type": "text", "id": "popular_label", "label": "Flag on the 2nd option", "default": "Most popular" }]
+    },
+    { "type": "buy_buttons", "name": "Buy button", "limit": 1 },
+    {
+      "type": "trust", "name": "Trust icons", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "t1", "label": "Shipping", "default": "Free US shipping" },
+        { "type": "text", "id": "t2", "label": "Returns", "default": "30-day guarantee" },
+        { "type": "text", "id": "t3", "label": "Checkout", "default": "Secure checkout" }
+      ]
+    },
+    {
+      "type": "guarantee", "name": "Guarantee box", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "The empty-bag guarantee" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Try it for 30 days. If you don't love it, send us a note and we'll refund you. Even if the bag is empty." }
+      ]
+    },
+    {
+      "type": "description", "name": "Description", "limit": 1,
+      "settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Details" }]
+    },
+    {
+      "type": "collapsible", "name": "Collapsible tab",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "How to use" },
+        {
+          "type": "select", "id": "icon", "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" }, { "value": "flask", "label": "Flask" }, { "value": "clock", "label": "Clock" },
+            { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return" }, { "value": "sparkle", "label": "Sparkle" }
+          ],
+          "default": "clock"
+        },
+        { "type": "text", "id": "metafield_key", "label": "Product metafield key to show (custom.___)", "info": "If the product has this metafield it's shown instead of the text below." },
+        { "type": "richtext", "id": "content", "label": "Text", "default": "<p>Chew two gummies a day, with or without food.</p>" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,36 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "a1": {
+          "type": "message",
+          "settings": {
+            "text": "Free US shipping \u00b7 30-day money-back guarantee",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "a1"
+      ],
+      "settings": {
+        "bg": "#1F6FAE",
+        "fg": "#FFFFFF"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "sticky": true
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}
